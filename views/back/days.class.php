@@ -1,9 +1,9 @@
 <?php
 namespace back;
 require_once(DOC_ROOT . '/plugins/facebook/autoload.php');
-use sys\System;
 use view\Back;
-use core\Admin;
+use sys\System;
+use thedaysoflife\Admin;
 use Facebook;
 
 class days extends Back {
@@ -13,9 +13,9 @@ class days extends Back {
   public function __construct() {
     parent::__construct();
 
-    $admin              = new Admin();
-    $days               = $admin->getDayList(1);
-    $this->data["days"] = $days;
+    $admin      = new Admin();
+    $days       = $admin->getDayList(1);
+    $this->data = ["days" => $days];
 
     // loin facebook
     if (!System::getSession("FB_appAccessToken")) {
@@ -37,7 +37,7 @@ class days extends Back {
           $response = $fb->get('/me/accounts', (string)$accessToken);
           foreach ($response->getDecodedBody() as $allPages) {
             foreach ($allPages as $page) {
-              if (isset($page['id']) && $page['id'] == FB_PAGEID) { // Suppose you save it as this variable
+              if (isset($page['id']) && $page['id'] == FB_PAGEID) {
                 $appAccessToken = (string)$page['access_token'];
                 System::setSession("FB_appAccessToken", $appAccessToken);
                 break;

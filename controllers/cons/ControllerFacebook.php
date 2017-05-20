@@ -2,7 +2,7 @@
 namespace cons;
 require_once(DOC_ROOT . '/plugins/facebook/autoload.php');
 use com\Com;
-use core\Admin;
+use thedaysoflife\Admin;
 use sys\System;
 use Facebook;
 
@@ -20,10 +20,13 @@ class ControllerFacebook extends Controller {
                                           'default_graph_version' => 'v2.8',]);
   }
 
-  public function ajaxPostToFacebook($para) {
+  /**
+   * Post days to facebook
+   */
+  public function ajaxPostToFacebook() {
     $appAccessToken = System::getSession("FB_appAccessToken");
-    $id             = (int)$para['id'];
-    $type           = $para['type'];
+    $id             = (int)$this->post['id'];
+    $type           = $this->post['type'];
     if ($appAccessToken) {
       $day = $this->admin->getDayById($id);
       switch($type) {
@@ -33,7 +36,7 @@ class ControllerFacebook extends Controller {
           $postID     = $response->getGraphNode();
           if ($postID) {
             $this->admin->updateFB($id, $type);
-            echo(json_encode(["status" => "OK", "id" => $id], JSON_UNESCAPED_SLASHES));
+            $this->response(["status" => "OK", "id" => $id]);
           }
           break;
 
@@ -43,7 +46,7 @@ class ControllerFacebook extends Controller {
           $postID     = $response->getGraphNode();
           if ($postID) {
             $this->admin->updateFB($id, $type);
-            echo(json_encode(["status" => "OK", "id" => $id], JSON_UNESCAPED_SLASHES));
+            $this->response(["status" => "OK", "id" => $id, "data" => "OK"]);
           }
           break;
 
@@ -53,7 +56,7 @@ class ControllerFacebook extends Controller {
           $postID     = $response->getGraphNode();
           if ($postID) {
             $this->admin->updateFB($id, $type);
-            echo(json_encode(["status" => "OK", "id" => $id], JSON_UNESCAPED_SLASHES));
+            $this->response(["status" => "OK", "id" => $id, "data" => "OK"]);
           }
           break;
 
@@ -80,7 +83,7 @@ class ControllerFacebook extends Controller {
               }
             }
           }
-          echo(json_encode(["status" => $status, "id" => $id], JSON_UNESCAPED_SLASHES));
+          $this->response(["status" => $status, "id" => $id, "data" => $status]);
           break;
       }
     }
@@ -88,8 +91,8 @@ class ControllerFacebook extends Controller {
       $permissions = ['manage_pages', 'publish_actions'];
       $helper      = $this->fb->getRedirectLoginHelper();
       $loginUrl    = $helper->getLoginUrl(SITE_URL . '/back/days/', $permissions);
-      echo json_encode(["status" => "login", "id" => $id,
-                        "url"    => '<a href="' . $loginUrl . '">FBLogin</a>'], JSON_UNESCAPED_SLASHES);
+      $this->response(["status" => "login", "id" => $id,
+                       "data"   => '<a href="' . $loginUrl . '">FBLogin</a>']);
     }
   }
 

@@ -1,6 +1,8 @@
 <?php
 /**
  * Base model class: this should be the only class that initiate DB
+ * All business classes should extend this core\Model
+ * @see thedaysoflife
  */
 namespace core;
 
@@ -19,6 +21,7 @@ class Model {
 
   /**
    * @param string $str
+   * @param bool $admin
    * @return mixed|string
    */
   public function escapeString($str, $admin = false) {
