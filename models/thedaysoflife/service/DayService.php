@@ -1,13 +1,15 @@
 <?php
-namespace api\service;
+namespace thedaysoflife\service;
+
 use api\Service;
 use api\ServiceInterface;
-use thedaysoflife\User;
+use thedaysoflife\model\User;
 
 class DayService extends Service implements ServiceInterface {
   /** @var User */
   protected $user;
   protected $requiredPermission = ["day"];
+  protected static $serviceName = "service_day";
 
   /**
    * DayService constructor.
@@ -21,10 +23,11 @@ class DayService extends Service implements ServiceInterface {
 
   /**
    * Return the map of this service and actions
+   * Each public function is an action [public_name => functionName]
    * @return array
    */
   public static function map() {
-    $map = ["service" => "service_day",
+    $map = ["service" => self::$serviceName,
             "class"   => __CLASS__,
             "actions" => ["get_day" => "getDay"],
     ];
@@ -33,6 +36,7 @@ class DayService extends Service implements ServiceInterface {
   }
 
   /**
+   * Get Day
    * @return array|bool
    */
   public function getDay() {
