@@ -42,7 +42,7 @@ $("a.remove-day").live("click", function () {
 function ajaxUpdateInfo() {
   CKEDITOR.instances['content'].updateElement();
   data = $("#div-edit-info").find("select[name], textarea[name], input[name]").serialize();
-  ajaxAction({"action": "ajaxUpdateInfo", "controller": "ControllerBack"}, data, "#ajax-loader",
+  ajaxAction({"action": "ajaxUpdateInfo", "controller": "ControllerBack"}, data, false, "#ajax-loader",
     {"container": "#ajax-loader", "act": "replace"}, false);
 }
 
@@ -55,14 +55,16 @@ function ajaxPostToFacebook(id, type) {
   loader = "#fb-post-" + id;
   data = $.param({"id": id, "type": type});
   callback = processPostToFacebook;
-  ajaxAction({"action": "ajaxPostToFacebook", "controller": "ControllerFacebook"}, data, loader, false, callback);
+  ajaxAction({
+    "action":     "ajaxPostToFacebook",
+    "controller": "ControllerFacebook"
+  }, data, false, loader, false, callback);
 }
 
 function processPostToFacebook(data) {
-  getData = $.parseJSON(data);
-  $("#fb-post-" + getData.id).html(getData.data);
-  if (getData.status == "OK") {
-    $("#fb-type-" + getData.id).addClass("fb-posted");
+  $("#fb-post-" + data.id).html(data.data);
+  if (data.status == "OK") {
+    $("#fb-type-" + data.id).addClass("fb-posted");
   }
 }
 /**
@@ -71,7 +73,7 @@ function processPostToFacebook(data) {
  */
 function ajaxPrintDay(page) {
   data = $.param({page: page});
-  ajaxAction({"action": "ajaxPrintDay", "controller": "ControllerBack"}, data, "#loader",
+  ajaxAction({"action": "ajaxPrintDay", "controller": "ControllerBack"}, data, false, "#loader",
     {"container": "#print-list", "act": "replace"}, false);
 }
 
@@ -80,7 +82,7 @@ function ajaxPrintDay(page) {
  */
 function ajaxRemoveUnusedPhoto() {
   ajaxAction({"action": "ajaxRemoveUnusedPhoto", "controller": "ControllerBack"},
-    false, "#remove-photo-result", {"container": "#remove-photo-result", "act": "replace"}, false);
+    false, false, "#remove-photo-result", {"container": "#remove-photo-result", "act": "replace"}, false);
 }
 
 /**
@@ -89,7 +91,7 @@ function ajaxRemoveUnusedPhoto() {
 function ajaxCheckDatabase() {
   act = $('input[name=checkdb]:checked').val();
   ajaxAction({"action": "ajaxCheckDatabase", "controller": "ControllerBack"},
-    $.param({"act": act}), "#check-database-result", {
+    $.param({"act": act}), false, "#check-database-result", {
       "container": "#check-database-result",
       "act":       "replace"
     }, false);
@@ -104,16 +106,18 @@ function ajaxUpdateADay() {
   photos = getIDs();
   data = content + "&" + $.param({"photos": photos})
   callback = processUpdateADay;
-  ajaxAction({"action": "ajaxUpdateADay", "controller": "ControllerBack"}, data, "#ajax-loader", false, callback);
+  ajaxAction({
+    "action":     "ajaxUpdateADay",
+    "controller": "ControllerBack"
+  }, data, false, "#ajax-loader", false, callback);
 }
 
 /**
  * @param data
  */
 function processUpdateADay(data) {
-  getData = $.parseJSON(data);
-  if (getData.status = "success") {
-    link = CONST.LIST_URL + getData.id + "/" + getData.day + getData.month + getData.year + "-" + getData.slug + CONST.LIST_EXT;
+  if (data.status = "success") {
+    link = CONST.LIST_URL + data.id + "/" + data.day + data.month + data.year + "-" + data.slug + CONST.LIST_EXT;
     $("#ajax-loader").html('Update successed. Clik <a target="_blank" href="' + link + '">here to view</a>');
     //window.location = link;
   }
@@ -132,8 +136,7 @@ function ajaxRemoveADay(id) {
  * @param data
  */
 function processRemoveADay(data) {
-  getData = $.parseJSON(data);
-  if (getData.status = "success") {
-    $('#row-' + getData.id).remove();
+  if (data.status = "success") {
+    $('#row-' + data.id).remove();
   }
 }
