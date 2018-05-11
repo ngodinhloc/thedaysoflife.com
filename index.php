@@ -12,7 +12,8 @@ use jennifer\sys\System;
 
 $system = new System();
 try {
-    $system->loadView()->renderView();
-} catch (RequestException $exception) {
-    $exception->getMessage();
+  $system->loadView()->renderView();
+}
+catch (RequestException $exception) {
+  $exception->getMessage();
 }

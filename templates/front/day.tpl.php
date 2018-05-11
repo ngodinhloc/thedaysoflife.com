@@ -11,7 +11,8 @@
           <i class="icon"></i>
           <span><a href="<?= htmlspecialchars($this->data["day"]["authorLink"]) ?>"><?= htmlspecialchars($this->data["day"]['username']) ?></a></span>
           <? if ($this->data["day"]['locationLink']) { ?>
-            - <a href="<?= htmlspecialchars($this->data["day"]["locationLink"]) ?>"><?= htmlspecialchars($this->data["day"]['location']) ?></a>
+            -
+            <a href="<?= htmlspecialchars($this->data["day"]["locationLink"]) ?>"><?= htmlspecialchars($this->data["day"]['location']) ?></a>
           <? } ?>
         </div>
         <div class="date post">
