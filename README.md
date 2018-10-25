@@ -144,11 +144,14 @@ catch (RequestException $exception) {
 ### Models
 #### thedaysoflife\User.php
 <pre>
-namespace thedaysoflife;
-use html\HTML;
-use sys\System;
-use com\Com;
-use core\Model;
+namespace thedaysoflife\model;
+
+use jennifer\core\Model;
+use jennifer\html\HTML;
+use jennifer\sys\Globals;
+use jennifer\template\Template;
+use thedaysoflife\com\Com;
+use thedaysoflife\sys\Configs;
 
 class User extends Model {
 
@@ -186,10 +189,15 @@ class User extends Model {
 </pre>
 #### thedaysoflife\Admin.php
 <pre>
-namespace thedaysoflife;
-use com\Common;
-use tpl\Template;
-use core\Model;
+namespace thedaysoflife\model;
+
+use jennifer\core\Model;
+use jennifer\db\table\Day;
+use jennifer\html\Element;
+use jennifer\template\Template;
+use thedaysoflife\com\Com;
+use thedaysoflife\sys\Configs;
+
 class Admin extends Model {
     /**
    * @param $page
@@ -212,31 +220,42 @@ class Admin extends Model {
 }
 </pre>
 ### Views
-#### views/front/index.class.php
+#### views/front/index.php
 <pre>
 namespace front;
-use view\Front;
-use thedaysoflife\User;
 
-class index extends Front {
-  protected $contentTemplate = "index";
+use jennifer\view\ViewInterface;
+use thedaysoflife\model\User;
+use thedaysoflife\view\ViewFront;
 
-  public function __construct() {
-    parent::__construct();
+class index extends ViewFront implements ViewInterface
+{
+    protected $contentTemplate = "index";
 
-    $user       = new User();
-    $days       = $user->getBestDays(0, ORDER_BY_ID);
-    $this->data = ["days" => $days, "order" => ORDER_BY_ID];
-  }
+    public function __construct(User $user = null)
+    {
+        parent::__construct();
+        $this->user = $user ? $user : new User();
+    }
+
+    public function prepare()
+    {
+        $days = $this->user->getDays(0, User::ORDER_BY_ID);
+        $this->data = ["days" => $days, "order" => User::ORDER_BY_ID];
+    }
 }
 </pre>
 ### Controllers
 #### cons\ControllerFront.php
 <pre>
 namespace cons;
-use com\Common;
-use sys\System;
-use thedaysoflife\User;
+
+use jennifer\com\Common;
+use jennifer\controller\Controller;
+use jennifer\sys\Globals;
+use thedaysoflife\model\User;
+use thedaysoflife\sys\Configs;
+
 class ControllerFront extends Controller { 
     /**
      * Show list of days
