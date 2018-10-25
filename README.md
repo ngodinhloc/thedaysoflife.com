@@ -72,18 +72,16 @@ TheDaysOfLife only receive information that users provide, which includes name, 
     - controllers/index.php
     
 - [Models](#models)
-    - jennifer\html\jobject\ClockerPicker.php
-    - jennifer\cache\FileCache.php
     - thedaysoflife\model\User.php
     - thedaysoflife\model\Admin.php
     
 - [Views](#views)
-    - views/front/index.php
+    - views\front\index.php
 - [Controllers](#controllers)
-    - ControllerView.php
+    - cons\ControllerView.php
 - [Templates](#templates)
-    - front\index.tpl.php
-    - jobject\clockpicer.tpl.php
+    - front/index.tpl.php
+    - jobject/clockpicer.tpl.php
 - [Ajax](#ajax)
     - js/ajax.js
     - js/thedaysoflife.front.js
@@ -142,7 +140,7 @@ catch (RequestException $exception) {
 }
 </pre>
 ### Models
-#### thedaysoflife\User.php
+#### thedaysoflife\model\User.php
 <pre>
 namespace thedaysoflife\model;
 
@@ -187,7 +185,7 @@ class User extends Model {
   
 }
 </pre>
-#### thedaysoflife\Admin.php
+#### thedaysoflife\model\Admin.php
 <pre>
 namespace thedaysoflife\model;
 
