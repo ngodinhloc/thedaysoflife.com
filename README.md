@@ -129,6 +129,7 @@ catch (RequestException $exception) {
 }
 </pre>
 #### controllers/index.php
+<pre>
 use jennifer\exception\RequestException;
 use jennifer\sys\System;
 
@@ -139,7 +140,7 @@ try {
 catch (RequestException $exception) {
   $exception->getMessage();
 }
-
+</pre>
 ### Models
 #### thedaysoflife\User.php
 <pre>
