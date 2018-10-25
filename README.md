@@ -25,34 +25,6 @@ Many questions poped up in my head: Was anybody in the same situation like me ? 
 
 Thedaysoflide was developed by using the Jennifer Framework https://github.com/ngodinhloc/jennifer
 
-### Privacy
-
-#### Rules of thumb
-
-As TheDaysOfLife was created "in the hope that it would be a place where people would feel comfortable to share their memories, a place where people would drop by seeking for companionship when lonely , a place where people would find inspiration when feeling down", so let's us keep it clean and clear by following a few simple rules:
-
-Be nice, respect others' shares and thoughts
-No bullies, no harashment.
-Sharing Days should not contain, or relate to, the following contents
-- pornography
-- advertisement
-- political
-Days that violate the rules would be removed without advance notices.
-
-#### User Information
-
-TheDaysOfLife only receive information that users provide, which includes name, email and location. These information are provied when users sharing a Day, or making a comment.
-
-- Users's name and location will be displayed under their Days,
-- Users' emails will not be displayed anywhere, these emails will only be used in case users want to make changes to, or remove, their Days.
-- User's information, include names, location and email, will not be exposed to any third party companies.
-- Users' emails will not be used for sending advertising emails or spams
-
-#### Cookies
-
-- TheDaysOfLife does not collect any information other than what users are willing to provide.
-- TheDaysOfLife does not interfere visitor browser's cookies for any kind of data such as user browing history, habbit or search.
-
 ### The Application
 - [Ajax MVC Pattern](#ajax-mvc-pattern)
 - [The Application Structure](#the-application-structure)
