@@ -52,3 +52,330 @@ TheDaysOfLife only receive information that users provide, which includes name, 
 
 - TheDaysOfLife does not collect any information other than what users are willing to provide.
 - TheDaysOfLife does not interfere visitor browser's cookies for any kind of data such as user browing history, habbit or search.
+
+### The Application
+- [Ajax MVC Pattern](#ajax-mvc-pattern)
+- [The Application Structure](#the-application-structure)
+    - api
+    - caches
+    - controllers
+    - interface
+    - js
+    - models
+    - plugins
+    - templates
+    - views 
+    
+- [Single Point Entry](#single-point-entry)
+    - index.php
+    - api\index.php
+    - controllers/index.php
+    
+- [Models](#models)
+    - jennifer\html\jobject\ClockerPicker.php
+    - jennifer\cache\FileCache.php
+    - thedaysoflife\model\User.php
+    - thedaysoflife\model\Admin.php
+    
+- [Views](#views)
+    - views/front/index.php
+- [Controllers](#controllers)
+    - ControllerView.php
+- [Templates](#templates)
+    - front\index.tpl.php
+    - jobject\clockpicer.tpl.php
+- [Ajax](#ajax)
+    - js/ajax.js
+    - js/thedaysoflife.front.js
+
+### Ajax MVC Pattern
+In Ajax MVC Pattern (aMVC): actions are sent from views to controllers via ajax
+<pre>views -> ajax -> controllers -> models</pre>
+
+### The Application Structure
+- models: contains all the packages and models which are the heart of Jennifer framework
+- views: contains all view classes. View classes are placed under each module. In the sample code, we have 2 modules: "back" and "front", each module has serveral views.
+- controllers: contains all controller classes. Each module may have one or more controllers
+- templates: contains all templates using in views, models and controllers. Templates are organised under module just like view. There are view templates and content templates. Each view has one view template with similar file name. For example: the index view (index.class.php) is using index template (index.tpl.php). Content templates are placed inside "tpl" folder, content templates may be used to render html content in views, models or controllers.
+- js: contains ajax.js and other js files
+- plugins: contains all plugins, such as: bootstrap, ckeditor, jquery
+- caches: contains cache files for mysql queries
+
+### Single Point Entry
+#### index.php
+<pre>
+use jennifer\exception\RequestException;
+use jennifer\sys\System;
+
+$system = new System();
+try {
+  $system->loadView()->renderView();
+}
+catch (RequestException $exception) {
+  $exception->getMessage();
+}
+</pre>
+#### api/index.php
+<pre>
+use jennifer\api\API;
+use jennifer\exception\RequestException;
+
+$api = new API();
+try {
+  $api->processRequest()->run();
+}
+catch (RequestException $exception) {
+  $exception->getMessage();
+}
+</pre>
+#### controllers/index.php
+use jennifer\exception\RequestException;
+use jennifer\sys\System;
+
+$system = new System();
+try {
+  $system->loadController()->runController();
+}
+catch (RequestException $exception) {
+  $exception->getMessage();
+}
+
+### Models
+#### thedaysoflife\User.php
+<pre>
+namespace thedaysoflife;
+use html\HTML;
+use sys\System;
+use com\Com;
+use core\Model;
+
+class User extends Model {
+
+ /**
+   * Insert new day
+   * @param array $day
+   * @return bool|\mysqli_result
+   */
+  public function addDay($day) {
+    $code   = mt_rand(100000, 999999);
+    $result = $this->db->table("tbl_day")->columns(["day", "month", "year", "title", "slug", "content", "preview",
+                                                    "sanitize", "username", "email", "location", "edit_code", "notify",
+                                                    "photos", "like", "date", "time", "ipaddress", "session_id"])
+                       ->values([$day["day"], $day["month"], $day["year"], $day["title"], $day["slug"], $day["content"],
+                                 $day["preview"], $day["sanitize"], $day["username"], $day["email"],
+                                 $day["location"], $code, $day["notify"], $day["photos"], $day["like"], $day["date"],
+                                 $day["time"], $day["ipaddress"], $day["session_id"]])
+                       ->insert();
+
+    return $result;
+  }
+  
+  /**
+   * Get one day by id
+   * @param int $id
+   * @return array
+   */
+  public function getDayById($id) {
+    $row = $this->db->table("tbl_day")->where(["id" => $id])->get()->first();
+
+    return $row;
+  }
+  
+}
+</pre>
+#### thedaysoflife\Admin.php
+<pre>
+namespace thedaysoflife;
+use com\Common;
+use tpl\Template;
+use core\Model;
+class Admin extends Model {
+    /**
+   * @param $page
+   * @return string
+   */
+  public function getDayList($page) {
+    $limit   = NUM_PER_PAGE_ADMIN;
+    $from    = $limit * ($page - 1);
+    $result  = $this->db->table("tbl_day")->select(["id", "title", "day", "month", "year", "slug", "username", "count",
+                                                    "like", "fb"])
+                        ->orderBy(["id" => "DESC"])->offset($from)
+                        ->limit($limit)->get(true)->toArray();
+    $total   = $this->db->foundRows();
+    $pageNum = ceil($total / $limit);
+    $tpl     = new Template("back/tpl/list_days", ["days"       => $result,
+                                               "pagination" => Common::getPagination("page-nav", $pageNum, $page, 4)]);
+
+    return $tpl->render();
+  }
+}
+</pre>
+### Views
+#### views/front/index.class.php
+<pre>
+namespace front;
+use view\Front;
+use thedaysoflife\User;
+
+class index extends Front {
+  protected $contentTemplate = "index";
+
+  public function __construct() {
+    parent::__construct();
+
+    $user       = new User();
+    $days       = $user->getBestDays(0, ORDER_BY_ID);
+    $this->data = ["days" => $days, "order" => ORDER_BY_ID];
+  }
+}
+</pre>
+### Controllers
+#### cons\ControllerFront.php
+<pre>
+namespace cons;
+use com\Common;
+use sys\System;
+use thedaysoflife\User;
+class ControllerFront extends Controller { 
+    /**
+     * Show list of days
+     */
+    public function ajaxShowDay() {
+      $from = (int)$this->post['from'];
+      $order = $this->post['order'];
+      if ($from > 0) {
+        $this->response($this->user->getBestDays($from, $order));
+      }
+    }
+    
+    /**
+     * Add new comment
+     */
+    public function ajaxMakeAComment() {
+      $comment = ["day_id"     => (int)$this->post['day_id'],
+                  "content"    => $this->user->escapeString($this->post['content']),
+                  "username"   => $this->user->escapeString($this->post['username']),
+                  "email"      => $this->user->escapeString($this->post['email']),
+                  "reply_id"   => 0,
+                  "reply_name" => '',
+                  "like"       => 0,
+                  "time"       => time(),
+                  "date"       => date('Y-m-d h:i:s'),
+                  "ipaddress"  => System::getRealIPaddress(),
+                  "session_id" => System::sessionID()];
+      $arr = [];
+      if ($comment["day_id"] > 0 && $comment["content"] != "" && $comment["username"] != "" && $comment["email"] != "") {
+        $re = $this->user->addComment($comment);
+        if ($re) {
+          $this->user->updateCommentCount($comment["day_id"]);
+          $lastCom = $this->user->getLastInsertComment($comment["time"], $comment["session_id"]);
+          $arr = ["result"  => true,
+                  "day_id"  => $comment["day_id"],
+                  "content" => $this->user->getOneCommentHTML($lastCom)];
+        }
+      } else {
+        $arr = ["result" => false, "error" => "Please check inputs"];
+      }
+      $this->response($arr);
+    }
+}
+</pre>
+### Templates
+#### templates/front/index.tpl.php
+<pre>
+&lt;ul id="slide-show" class="list-unstyled"&gt;
+  &lt;?= $this->data["days"] ?&gt;
+&lt;/ul&gt;
+&lt;div id="show-more" class="show-more" order-tag="&lt;?= $this->data["order"] ?&gt;" data="&lt;?= NUM_PER_PAGE * 2 ?&gt;"&gt;
+  + Load More Days
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+  $(function () {
+    wookmarkHandle();
+  });
+&lt;/script&gt;
+</pre>
+#### templates/jobject/clockpicker.tpl.php
+<pre>
+&lt;div class="input-group clockpicker" data-autoclose="&lt;?= $this->data["autoClose"] ?>"&gt;
+&lt;input type="text" class="form-control &lt;?= $this->class ?&gt;"
+     id="&lt;?= $this->id ?&gt;" name="&lt;?= $this->id ?&gt;" value="&lt;?= $this->data["value"] ?&gt;" placeholder="hh:mm"&gt;
+&lt;span class="input-group-addon"&gt;&lt;i class="glyphicon glyphicon-time"&gt;&lt;/i&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+$(function () {
+$('.input-group.clockpicker').clockpicker();
+})
+&lt;/script&gt;
+</pre>
+### Ajax
+#### js/ajax.js
+<pre>
+/**
+ * @param actionPara object {"action":action, "controller":controller}
+ * @param para object $.para({"name":value})
+ * @param loader string
+ * @param containerPara array {"container" : container_id, "act": "replace|append"]
+ * @param callback function
+ */
+function ajaxAction(actionPara, para, loader, containerPara, callback) {
+  para = para + "&" + $.param(actionPara);
+  if (loader) {
+    $(loader).html(AJAX_LOADER);
+  }
+  $.ajax({
+    url:     CONST.CONTROLLER_URL,
+    type:    "POST",
+    cache:   false,
+    data:    para,
+    success: function (data, textStatus, jqXHR) {
+      if (loader) {
+        $(loader).html('');
+      }
+      if (callback) {
+        callback(data);
+        return;
+      }
+      if (containerPara) {
+        container = containerPara.container;
+        act = containerPara.act;
+        if (act == "replace") {
+          $(container).html(data);
+        }
+        if (act == "append") {
+          $(container).append(data);
+        }
+      }
+    },
+    error:   function (jqXHR, textStatus, errorThrown) {
+    }
+  });
+}
+</pre>
+#### js/thedaysoflife.front.js
+<pre>
+/**
+ * Add new day
+ */
+function ajaxMakeADay() {
+  content = $("#div-day-content").find("select[name], textarea[name], input[name]").serialize();
+  info = $("#div-author-info").find("select[name], textarea[name], input[name]").serialize();
+  photos = getIDs();
+  data = content + "&" + info + "&" + $.param({"photos": photos});
+  callback = processMakeADay;
+  ajaxAction({"action": "ajaxMakeADay", "controller": "ControllerFront"}, data, "#ajax-loader", false, callback);
+}
+
+/**
+ * process returned data when add day
+ * @param data
+ */
+function processMakeADay(data) {
+  var getData = $.parseJSON(data);
+  if (getData.status = "success") {
+    link = CONST.LIST_URL + getData.id + "/" + getData.day + getData.month +
+           getData.year + '-' + getData.slug + CONST.LIST_EXT;
+    window.location = link;
+  }
+}
+</pre>
