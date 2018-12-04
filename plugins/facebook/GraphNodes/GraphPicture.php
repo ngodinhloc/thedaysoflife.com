@@ -4,7 +4,7 @@
  *
  * You are hereby granted a non-exclusive, worldwide, royalty-free license to
  * use, copy, modify, and distribute this software in source code or binary
- * form for use in connection with the web services and APIs provided by
+ * form for use in connection with the web service and APIs provided by
  * Facebook.
  *
  * As with any software that integrates with the Facebook platform, your use
@@ -21,7 +21,6 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
-
 namespace Facebook\GraphNodes;
 
 /**
@@ -29,40 +28,45 @@ namespace Facebook\GraphNodes;
  *
  * @package Facebook
  */
-class GraphPicture extends GraphNode {
-  /**
-   * Returns true if user picture is silhouette.
-   *
-   * @return bool|null
-   */
-  public function isSilhouette() {
-    return $this->getField('is_silhouette');
-  }
+class GraphPicture extends GraphNode
+{
+    /**
+     * Returns true if user picture is silhouette.
+     *
+     * @return bool|null
+     */
+    public function isSilhouette()
+    {
+        return $this->getField('is_silhouette');
+    }
 
-  /**
-   * Returns the url of user picture if it exists
-   *
-   * @return string|null
-   */
-  public function getUrl() {
-    return $this->getField('url');
-  }
+    /**
+     * Returns the url of user picture if it exists
+     *
+     * @return string|null
+     */
+    public function getUrl()
+    {
+        return $this->getField('url');
+    }
 
-  /**
-   * Returns the width of user picture if it exists
-   *
-   * @return int|null
-   */
-  public function getWidth() {
-    return $this->getField('width');
-  }
+    /**
+     * Returns the width of user picture if it exists
+     *
+     * @return int|null
+     */
+    public function getWidth()
+    {
+        return $this->getField('width');
+    }
 
-  /**
-   * Returns the height of user picture if it exists
-   *
-   * @return int|null
-   */
-  public function getHeight() {
-    return $this->getField('height');
-  }
+    /**
+     * Returns the height of user picture if it exists
+     *
+     * @return int|null
+     */
+    public function getHeight()
+    {
+        return $this->getField('height');
+    }
 }

@@ -11,8 +11,7 @@
           <i class="icon"></i>
           <span><a href="<?= htmlspecialchars($this->data["day"]["authorLink"]) ?>"><?= htmlspecialchars($this->data["day"]['username']) ?></a></span>
           <? if ($this->data["day"]['locationLink']) { ?>
-            -
-            <a href="<?= htmlspecialchars($this->data["day"]["locationLink"]) ?>"><?= htmlspecialchars($this->data["day"]['location']) ?></a>
+            - <a href="<?= htmlspecialchars($this->data["day"]["locationLink"]) ?>"><?= htmlspecialchars($this->data["day"]['location']) ?></a>
           <? } ?>
         </div>
         <div class="date post">
@@ -29,7 +28,7 @@
       </div>
       <hr/>
       <div class="body">
-        <p><?= htmlspecialchars($this->data["day"]['content']) ?></p>
+        <p><?= $this->data["day"]['content'] ?></p>
       </div>
       <?= $this->data["day"]["slider"] ?>
       <div class="action-content" id="action-container">

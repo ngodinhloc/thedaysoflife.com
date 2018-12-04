@@ -9,8 +9,7 @@ use jennifer\sys\System;
 
 $system = new System();
 try {
-  $system->loadController()->runController();
-}
-catch (RequestException $exception) {
-  $exception->getMessage();
+    $system->loadController()->runController();
+} catch (RequestException $exception) {
+    $exception->getMessage();
 }

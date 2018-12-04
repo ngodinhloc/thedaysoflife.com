@@ -4,7 +4,7 @@
  *
  * You are hereby granted a non-exclusive, worldwide, royalty-free license to
  * use, copy, modify, and distribute this software in source code or binary
- * form for use in connection with the web services and APIs provided by
+ * form for use in connection with the web service and APIs provided by
  * Facebook.
  *
  * As with any software that integrates with the Facebook platform, your use
@@ -21,7 +21,6 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
-
 namespace Facebook\Helpers;
 
 /**
@@ -29,13 +28,15 @@ namespace Facebook\Helpers;
  *
  * @package Facebook
  */
-class FacebookJavaScriptHelper extends FacebookSignedRequestFromInputHelper {
-  /**
-   * Get raw signed request from the cookie.
-   *
-   * @return string|null
-   */
-  public function getRawSignedRequest() {
-    return $this->getRawSignedRequestFromCookie();
-  }
+class FacebookJavaScriptHelper extends FacebookSignedRequestFromInputHelper
+{
+    /**
+     * Get raw signed request from the cookie.
+     *
+     * @return string|null
+     */
+    public function getRawSignedRequest()
+    {
+        return $this->getRawSignedRequestFromCookie();
+    }
 }

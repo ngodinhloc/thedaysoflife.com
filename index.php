@@ -9,11 +9,12 @@ require_once("models/autoload.php");
 
 use jennifer\exception\RequestException;
 use jennifer\sys\System;
+use jennifer\http\Response;
 
 $system = new System();
 try {
-  $system->loadView()->renderView();
+    $system->loadView()->renderView();
 }
 catch (RequestException $exception) {
-  $exception->getMessage();
+    (new Response())->error($exception->getMessage());
 }

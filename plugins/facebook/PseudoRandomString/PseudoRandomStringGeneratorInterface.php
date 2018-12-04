@@ -4,7 +4,7 @@
  *
  * You are hereby granted a non-exclusive, worldwide, royalty-free license to
  * use, copy, modify, and distribute this software in source code or binary
- * form for use in connection with the web services and APIs provided by
+ * form for use in connection with the web service and APIs provided by
  * Facebook.
  *
  * As with any software that integrates with the Facebook platform, your use
@@ -21,7 +21,6 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
-
 namespace Facebook\PseudoRandomString;
 
 /**
@@ -29,17 +28,18 @@ namespace Facebook\PseudoRandomString;
  *
  * @package Facebook
  */
-interface PseudoRandomStringGeneratorInterface {
-  /**
-   * Get a cryptographically secure pseudo-random string of arbitrary length.
-   *
-   * @see http://sockpuppet.org/blog/2014/02/25/safely-generate-random-numbers/
-   *
-   * @param int $length The length of the string to return.
-   *
-   * @return string
-   *
-   * @throws \Facebook\Exceptions\FacebookSDKException|\InvalidArgumentException
-   */
-  public function getPseudoRandomString($length);
+interface PseudoRandomStringGeneratorInterface
+{
+    /**
+     * Get a cryptographically secure pseudo-random string of arbitrary length.
+     *
+     * @see http://sockpuppet.org/blog/2014/02/25/safely-generate-random-numbers/
+     *
+     * @param int $length The length of the string to return.
+     *
+     * @return string
+     *
+     * @throws \Facebook\Exceptions\FacebookSDKException|\InvalidArgumentException
+     */
+    public function getPseudoRandomString($length);
 }

@@ -4,7 +4,7 @@
  *
  * You are hereby granted a non-exclusive, worldwide, royalty-free license to
  * use, copy, modify, and distribute this software in source code or binary
- * form for use in connection with the web services and APIs provided by
+ * form for use in connection with the web service and APIs provided by
  * Facebook.
  *
  * As with any software that integrates with the Facebook platform, your use
@@ -21,7 +21,6 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
-
 namespace Facebook\Helpers;
 
 use Facebook\FacebookApp;
@@ -32,60 +31,65 @@ use Facebook\FacebookClient;
  *
  * @package Facebook
  */
-class FacebookPageTabHelper extends FacebookCanvasHelper {
-  /**
-   * @var array|null
-   */
-  protected $pageData;
+class FacebookPageTabHelper extends FacebookCanvasHelper
+{
+    /**
+     * @var array|null
+     */
+    protected $pageData;
 
-  /**
-   * Initialize the helper and process available signed request data.
-   *
-   * @param FacebookApp $app The FacebookApp entity.
-   * @param FacebookClient $client The client to make HTTP requests.
-   * @param string|null $graphVersion The version of Graph to use.
-   */
-  public function __construct(FacebookApp $app, FacebookClient $client, $graphVersion = null) {
-    parent::__construct($app, $client, $graphVersion);
+    /**
+     * Initialize the helper and process available signed request data.
+     *
+     * @param FacebookApp    $app          The FacebookApp entity.
+     * @param FacebookClient $client       The client to make HTTP requests.
+     * @param string|null    $graphVersion The version of Graph to use.
+     */
+    public function __construct(FacebookApp $app, FacebookClient $client, $graphVersion = null)
+    {
+        parent::__construct($app, $client, $graphVersion);
 
-    if (!$this->signedRequest) {
-      return;
+        if (!$this->signedRequest) {
+            return;
+        }
+
+        $this->pageData = $this->signedRequest->get('page');
     }
 
-    $this->pageData = $this->signedRequest->get('page');
-  }
+    /**
+     * Returns a value from the page data.
+     *
+     * @param string     $key
+     * @param mixed|null $default
+     *
+     * @return mixed|null
+     */
+    public function getPageData($key, $default = null)
+    {
+        if (isset($this->pageData[$key])) {
+            return $this->pageData[$key];
+        }
 
-  /**
-   * Returns a value from the page data.
-   *
-   * @param string $key
-   * @param mixed|null $default
-   *
-   * @return mixed|null
-   */
-  public function getPageData($key, $default = null) {
-    if (isset($this->pageData[$key])) {
-      return $this->pageData[$key];
+        return $default;
     }
 
-    return $default;
-  }
+    /**
+     * Returns true if the user is an admin.
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->getPageData('admin') === true;
+    }
 
-  /**
-   * Returns true if the user is an admin.
-   *
-   * @return boolean
-   */
-  public function isAdmin() {
-    return $this->getPageData('admin') === true;
-  }
-
-  /**
-   * Returns the page id if available.
-   *
-   * @return string|null
-   */
-  public function getPageId() {
-    return $this->getPageData('id');
-  }
+    /**
+     * Returns the page id if available.
+     *
+     * @return string|null
+     */
+    public function getPageId()
+    {
+        return $this->getPageData('id');
+    }
 }

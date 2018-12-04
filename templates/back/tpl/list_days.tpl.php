@@ -1,7 +1,6 @@
 <?php
-use jennifer\fb\FacebookHelper;
-use thedaysoflife\com\Com;
-
+  use jennifer\fb\FacebookHelper;
+  use thedaysoflife\com\Com;
 ?>
   <table>
     <thead>

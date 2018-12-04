@@ -1,5 +1,4 @@
 <?php
-
 namespace cons;
 
 use jennifer\controller\Controller;
@@ -45,7 +44,7 @@ class ControllerUpload extends Controller {
               $image->thumbnail(Configs::PHOTO_THUMB_WIDTH, Configs::PHOTO_THUMB_HEIGHT);
               $image->save($photoDir . $thumbName);
 
-              $thumbURL     = Com::getPhotoURL($name, Configs::PHOTO_THUMB_NAME);
+              $thumbURL = Com::getPhotoURL($name, Configs::PHOTO_THUMB_NAME);
               $this->result .= $this->createPhotoHTML($name, $thumbURL);
             }
             else {

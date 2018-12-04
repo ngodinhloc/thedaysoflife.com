@@ -23,8 +23,7 @@ $url = 'www.thedaysoflife.com/api/?req={"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI
 
 $api = new API();
 try {
-  $api->processRequest()->run();
-}
-catch (RequestException $exception) {
-  $exception->getMessage();
+    $api->processRequest()->run();
+} catch (RequestException $exception) {
+    $exception->getMessage();
 }

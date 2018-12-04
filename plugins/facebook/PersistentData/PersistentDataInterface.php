@@ -21,7 +21,6 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
-
 namespace Facebook\PersistentData;
 
 /**
@@ -29,21 +28,22 @@ namespace Facebook\PersistentData;
  *
  * @package Facebook
  */
-interface PersistentDataInterface {
-  /**
-   * Get a value from a persistent data store.
-   *
-   * @param string $key
-   *
-   * @return mixed
-   */
-  public function get($key);
+interface PersistentDataInterface
+{
+    /**
+     * Get a value from a persistent data store.
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function get($key);
 
-  /**
-   * Set a value in the persistent data store.
-   *
-   * @param string $key
-   * @param mixed $value
-   */
-  public function set($key, $value);
+    /**
+     * Set a value in the persistent data store.
+     *
+     * @param string $key
+     * @param mixed  $value
+     */
+    public function set($key, $value);
 }

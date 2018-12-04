@@ -4,7 +4,7 @@
  *
  * You are hereby granted a non-exclusive, worldwide, royalty-free license to
  * use, copy, modify, and distribute this software in source code or binary
- * form for use in connection with the web services and APIs provided by
+ * form for use in connection with the web service and APIs provided by
  * Facebook.
  *
  * As with any software that integrates with the Facebook platform, your use
@@ -21,7 +21,6 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
-
 namespace Facebook\GraphNodes;
 
 /**
@@ -29,67 +28,75 @@ namespace Facebook\GraphNodes;
  *
  * @package Facebook
  */
-class GraphLocation extends GraphNode {
-  /**
-   * Returns the street component of the location
-   *
-   * @return string|null
-   */
-  public function getStreet() {
-    return $this->getField('street');
-  }
+class GraphLocation extends GraphNode
+{
+    /**
+     * Returns the street component of the location
+     *
+     * @return string|null
+     */
+    public function getStreet()
+    {
+        return $this->getField('street');
+    }
 
-  /**
-   * Returns the city component of the location
-   *
-   * @return string|null
-   */
-  public function getCity() {
-    return $this->getField('city');
-  }
+    /**
+     * Returns the city component of the location
+     *
+     * @return string|null
+     */
+    public function getCity()
+    {
+        return $this->getField('city');
+    }
 
-  /**
-   * Returns the state component of the location
-   *
-   * @return string|null
-   */
-  public function getState() {
-    return $this->getField('state');
-  }
+    /**
+     * Returns the state component of the location
+     *
+     * @return string|null
+     */
+    public function getState()
+    {
+        return $this->getField('state');
+    }
 
-  /**
-   * Returns the country component of the location
-   *
-   * @return string|null
-   */
-  public function getCountry() {
-    return $this->getField('country');
-  }
+    /**
+     * Returns the country component of the location
+     *
+     * @return string|null
+     */
+    public function getCountry()
+    {
+        return $this->getField('country');
+    }
 
-  /**
-   * Returns the zipcode component of the location
-   *
-   * @return string|null
-   */
-  public function getZip() {
-    return $this->getField('zip');
-  }
+    /**
+     * Returns the zipcode component of the location
+     *
+     * @return string|null
+     */
+    public function getZip()
+    {
+        return $this->getField('zip');
+    }
 
-  /**
-   * Returns the latitude component of the location
-   *
-   * @return float|null
-   */
-  public function getLatitude() {
-    return $this->getField('latitude');
-  }
+    /**
+     * Returns the latitude component of the location
+     *
+     * @return float|null
+     */
+    public function getLatitude()
+    {
+        return $this->getField('latitude');
+    }
 
-  /**
-   * Returns the street component of the location
-   *
-   * @return float|null
-   */
-  public function getLongitude() {
-    return $this->getField('longitude');
-  }
+    /**
+     * Returns the street component of the location
+     *
+     * @return float|null
+     */
+    public function getLongitude()
+    {
+        return $this->getField('longitude');
+    }
 }
