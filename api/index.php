@@ -6,6 +6,7 @@ require_once("../models/autoload.php");
 
 use jennifer\api\API;
 use jennifer\exception\RequestException;
+use jennifer\http\Response;
 
 /*
  * Sample api request
@@ -24,6 +25,7 @@ $url = 'www.thedaysoflife.com/api/?req={"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI
 $api = new API();
 try {
     $api->processRequest()->run();
-} catch (RequestException $exception) {
-    $exception->getMessage();
+}
+catch (RequestException $exception) {
+    (new Response())->error($exception->getMessage());
 }

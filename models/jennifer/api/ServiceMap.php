@@ -2,8 +2,6 @@
 
 namespace jennifer\api;
 
-use thedaysoflife\service\DayService;
-
 /**
  * Class ServiceMap
  * @package jennifer\api
@@ -13,8 +11,10 @@ class ServiceMap {
     protected $maps = [];
     
     public function __construct() {
-        /** All api services need to be registered in ServiceMap so that API could find them */
-        $this->register(DayService::map());
+        /**
+         * All api services need to be registered in ServiceMap so that API could find them
+         * $this->register(DayService::map());
+         */
     }
     
     /**

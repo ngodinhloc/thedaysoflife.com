@@ -24,7 +24,7 @@ class Output implements OutputInterface {
             }
             exit();
         }
-        
+    
         echo($html);
         exit();
     }
@@ -43,7 +43,7 @@ class Output implements OutputInterface {
             echo(json_encode($data, $jsonOpt));
             exit();
         }
-        
+    
         echo($data);
         exit();
     }

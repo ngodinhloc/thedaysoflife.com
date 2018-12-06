@@ -64,19 +64,19 @@ class API {
             if (!isset($json["token"]) || !isset($json["service"]) || !isset($json["action"])) {
                 throw new RequestException(RequestException::ERROR_MSG_INVALID_API_REQUEST, RequestException::ERROR_CODE_INVALID_API_REQUEST);
             }
-            
+    
             $this->token    = $json["token"];
             $this->userData = (array)JWT::decode($this->token, getenv("JWT_KEY_API"), ['HS256']);
             if (!isset($this->userData["userID"]) || !isset($this->userData["permission"])) {
                 throw new RequestException(RequestException::ERROR_MSG_INVALID_API_TOKEN, RequestException::ERROR_CODE_INVALID_API_TOKEN);
             }
-            
+    
             list($this->serviceClass, $this->action) = $this->mapper->map($json["service"], $json["action"]);
             if (!$this->serviceClass || !$this->action) {
                 throw new RequestException(RequestException::ERROR_MSG_INVALID_SERVICE, RequestException::ERROR_CODE_INVALID_SERVICE);
             }
             $this->para = isset($json["para"]) ? $json["para"] : [];
-            
+    
             return $this;
         }
         throw new RequestException(RequestException::ERROR_MSG_INVALID_API_REQUEST, RequestException::ERROR_CODE_INVALID_API_REQUEST);

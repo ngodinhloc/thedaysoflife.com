@@ -32,7 +32,7 @@ class SimpleImage {
      *                  (is used for creating image from scratch)
      *
      * @return SimpleImage
-     * @throws Exception
+     * @throws \Exception
      *
      */
     function __construct($filename = null, $width = null, $height = null, $color = null) {
@@ -507,14 +507,14 @@ class SimpleImage {
      * @param string $filename Path to image file
      *
      * @return SimpleImage
-     * @throws Exception
+     * @throws \Exception
      *
      */
     function load($filename) {
         
         // Require GD library
         if (!extension_loaded('gd')) {
-            throw new Exception('Required extension GD is not loaded.');
+            throw new \Exception('Required extension GD is not loaded.');
         }
         $this->filename = $filename;
         
@@ -531,7 +531,7 @@ class SimpleImage {
      */
     function load_base64($base64string) {
         if (!extension_loaded('gd')) {
-            throw new Exception('Required extension GD is not loaded.');
+            throw new \Exception('Required extension GD is not loaded.');
         }
         //remove data URI scheme and spaces from base64 string then decode it
         $this->imagestring = base64_decode(str_replace(' ', '+', preg_replace('#^data:image/[^;]+;base64,#', '', $base64string)));
@@ -557,7 +557,7 @@ class SimpleImage {
      *
      * @param float|int $opacity 0-1
      *
-     * @throws Exception
+     * @throws \Exception
      *
      */
     function opacity($opacity) {
@@ -588,7 +588,7 @@ class SimpleImage {
      * @param null|string $format If omitted or null - format of original file will be used, may be gif|jpg|png
      * @param int|null $quality Output image quality in percents 0-100
      *
-     * @throws Exception
+     * @throws \Exception
      *
      */
     function output($format = null, $quality = null) {
@@ -629,7 +629,7 @@ class SimpleImage {
                 imagepng($this->image, null, round(9 * $quality / 100));
                 break;
             default:
-                throw new Exception('Unsupported image format: ' . $this->filename);
+                throw new \Exception('Unsupported image format: ' . $this->filename);
                 break;
         }
         
@@ -645,7 +645,7 @@ class SimpleImage {
      * @param int|null $quality Output image quality in percents 0-100
      *
      * @return string
-     * @throws Exception
+     * @throws \Exception
      *
      */
     function output_base64($format = null, $quality = null) {
@@ -686,7 +686,7 @@ class SimpleImage {
                 imagepng($this->image, null, round(9 * $quality / 100));
                 break;
             default:
-                throw new Exception('Unsupported image format: ' . $this->filename);
+                throw new \Exception('Unsupported image format: ' . $this->filename);
                 break;
         }
         $image_data = ob_get_contents();
@@ -862,7 +862,7 @@ class SimpleImage {
      * @param null|int $quality Output image quality in percents 0-100
      *
      * @return SimpleImage
-     * @throws Exception
+     * @throws \Exception
      *
      */
     function save($filename = null, $quality = null) {
@@ -886,11 +886,11 @@ class SimpleImage {
                 $result = imagepng($this->image, $filename, round(9 * $quality / 100));
                 break;
             default:
-                throw new Exception('Unsupported format');
+                throw new \Exception('Unsupported format');
         }
         
         if (!$result) {
-            throw new Exception('Unable to save image: ' . $filename);
+            throw new \Exception('Unable to save image: ' . $filename);
         }
         
         return $this;
@@ -948,7 +948,7 @@ class SimpleImage {
      * @param int $y_offset
      *
      * @return SimpleImage
-     * @throws Exception
+     * @throws \Exception
      *
      */
     function text($text, $font_file, $font_size = 12, $color = '#000000', $position = 'center', $x_offset = 0,
@@ -964,7 +964,7 @@ class SimpleImage {
         // Determine textbox size
         $box = imagettfbbox($font_size, $angle, $font_file, $text);
         if (!$box) {
-            throw new Exception('Unable to load font: ' . $font_file);
+            throw new \Exception('Unable to load font: ' . $font_file);
         }
         $box_width  = abs($box[6] - $box[2]);
         $box_height = abs($box[7] - $box[1]);
@@ -1077,7 +1077,7 @@ class SimpleImage {
      * @param string|null $imagestring If omitted treat as a normal image
      *
      * @return SimpleImage
-     * @throws Exception
+     * @throws \Exception
      *
      */
     protected function get_meta_data() {
@@ -1096,7 +1096,7 @@ class SimpleImage {
                     $this->image = imagecreatefrompng($this->filename);
                     break;
                 default:
-                    throw new Exception('Invalid image: ' . $this->filename);
+                    throw new \Exception('Invalid image: ' . $this->filename);
                     break;
             }
         }
@@ -1104,7 +1104,7 @@ class SimpleImage {
             $info = getimagesizefromstring($this->imagestring);
         }
         else {
-            throw new Exception('PHP 5.4 is required to use method getimagesizefromstring');
+            throw new \Exception('PHP 5.4 is required to use method getimagesizefromstring');
         }
         
         $this->original_info = [

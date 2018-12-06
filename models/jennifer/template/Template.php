@@ -41,7 +41,7 @@ class Template implements TemplateInterface {
         if ($compress) {
             $html = Compressor::compressHTML($html);
         }
-        
+    
         return $html;
     }
     

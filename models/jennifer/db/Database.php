@@ -5,6 +5,7 @@ namespace jennifer\db;
 use jennifer\cache\CacheInterface;
 use jennifer\cache\FileCache;
 use jennifer\db\driver\DriverFactory;
+use jennifer\db\driver\DriverInterface;
 
 /**
  * Class Database
@@ -57,7 +58,7 @@ abstract class Database implements DatabaseInterface {
     
     /**
      * Database constructor.
-     * @param \db\driver\DriverInterface
+     * @param DriverInterface
      */
     public function __construct($driver = null) {
         if ($driver) {
@@ -164,8 +165,6 @@ abstract class Database implements DatabaseInterface {
                     if ($foundRows) {
                         $this->foundRows = $data["found"];
                     }
-                    
-                    return $this;
                 }
                 else {
                     $result = $this->query($sql);
@@ -175,8 +174,6 @@ abstract class Database implements DatabaseInterface {
                     $this->result = $this->resultToArray($result);
                     $data         = ["found" => $this->foundRows, "data" => $this->result];
                     $this->cacher->writeCache($sql, $data);
-                    
-                    return $this;
                 }
                 break;
             case "mem":
@@ -187,10 +184,10 @@ abstract class Database implements DatabaseInterface {
                     $this->setFoundRows();
                 }
                 $this->result = $this->resultToArray($result);
-                
-                return $this;
                 break;
         }
+    
+        return $this;
     }
     
     /**

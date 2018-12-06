@@ -6,11 +6,16 @@ require_once("../models/autoload.php");
 
 use jennifer\exception\RequestException;
 use jennifer\sys\System;
+use jennifer\exception\ConfigException;
+use jennifer\http\Response;
 
-$system = new System([DOC_ROOT . "/config/env.ini"], [DOC_ROOT . "/config/routes.ini"]);
 try {
+    $system = new System([DOC_ROOT . "/config/env.ini"], [DOC_ROOT . "/config/routes.ini"]);
     $system->loadController()->runController();
 }
+catch (ConfigException $exception) {
+    (new Response())->error($exception->getMessage());
+}
 catch (RequestException $exception) {
-    $exception->getMessage();
+    (new Response())->error($exception->getMessage());
 }

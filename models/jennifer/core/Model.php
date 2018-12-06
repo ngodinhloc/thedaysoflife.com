@@ -6,7 +6,6 @@ use jennifer\db\Capsule;
 
 /**
  * Base model class, all business classes should extend this core class
- * @see \thedaysoflife\model\
  * @package jennifer\core
  */
 class Model {

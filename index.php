@@ -10,10 +10,14 @@ require_once("models/autoload.php");
 use jennifer\exception\RequestException;
 use jennifer\sys\System;
 use jennifer\http\Response;
+use jennifer\exception\ConfigException;
 
-$system = new System([DOC_ROOT . "/config/env.ini"], [DOC_ROOT . "/config/routes.ini"]);
 try {
+    $system = new System([DOC_ROOT . "/config/env.ini"], [DOC_ROOT . "/config/routes.ini"]);
     $system->matchRoute()->loadView()->renderView();
+}
+catch (ConfigException $exception) {
+    (new Response())->error($exception->getMessage());
 }
 catch (RequestException $exception) {
     (new Response())->error($exception->getMessage());
