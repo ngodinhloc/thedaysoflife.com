@@ -10,7 +10,7 @@
   </div>
   <nav class="nav-content collapse navbar-collapse bs-navbar-collapse">
     <ul class="nav navbar-nav">
-      <?= Com::getMenu($this->meta["view"]) ?>
+        <?= Com::getMenu($this->meta["route"]) ?>
     </ul>
   </nav>
 </div>

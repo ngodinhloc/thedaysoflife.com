@@ -15,7 +15,7 @@ RewriteRule ^(.*)$ http://www.thedaysoflife.com/$1 [R=301,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !(/controllers/|/interface/|/js/|/plugins/|/views/|/api/)
+RewriteCond %{REQUEST_URI} !(/controllers/|/assets/|/js/|/plugins/|/views/|/api/)
 RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
 
 #compress by gzip

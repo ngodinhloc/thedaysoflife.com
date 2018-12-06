@@ -1,12 +1,10 @@
 <?php
 
-  namespace thedaysoflife\sys;
+namespace thedaysoflife\sys;
 
-  use jennifer\sys\Config;
-
-  class Configs extends Config {
+class Configs {
     //URL
-    const LIST_URL       = self::SITE_URL . '/day/';
+    const LIST_URL = 'http://www.thedaysoflife.com/day/';
     // META
     const SITE_TITLE       = 'The Days Of Life';
     const SITE_AUTHOR      = 'The Days Of Life';
@@ -37,4 +35,6 @@
     const PHOTO_TITLE_HEIGHT   = 240;
     const PHOTO_THUMB_WIDTH    = 75;
     const PHOTO_THUMB_HEIGHT   = 75;
-  }
+    
+    const PHOTO_MAX_SIZE = 5; // MB
+}

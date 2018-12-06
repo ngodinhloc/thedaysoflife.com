@@ -7,9 +7,10 @@ require_once("../models/autoload.php");
 use jennifer\exception\RequestException;
 use jennifer\sys\System;
 
-$system = new System();
+$system = new System([DOC_ROOT . "/config/env.ini"], [DOC_ROOT . "/config/routes.ini"]);
 try {
     $system->loadController()->runController();
-} catch (RequestException $exception) {
+}
+catch (RequestException $exception) {
     $exception->getMessage();
 }

@@ -5,15 +5,15 @@
       <div>
         <select class=" form-control days" id="day" name="day">
           <option class="select" value="0">Day</option>
-          <?= $this->data["daySelect"] ?>
+            <?= $this->data["daySelect"] ?>
         </select>
         <select class="form-control days" id="month" name="month">
           <option class="select" value="0">Month*</option>
-          <?= $this->data["monthSelect"] ?>
+            <?= $this->data["monthSelect"] ?>
         </select>
         <select class="form-control days" id="year" name="year">
           <option class="select" value="0">Year*</option>
-          <?= $this->data["yearSelect"] ?>
+            <?= $this->data["yearSelect"] ?>
         </select>
         <span id="check" class="error"></span>
       </div>
@@ -30,10 +30,10 @@
 
     <div class="form-group col-md-9">
       <label>Share your memories of that day</label>
-      <textarea class="form-control" rows="3" id="content" name="content"><?= stripcslashes($this->data["row"]['content']) ?></textarea>
+      <textarea class="form-control content" id="content" name="content"><?= stripcslashes($this->data["row"]['content']) ?></textarea>
     </div>
     <div class="form-group col-md-9">
-      <?= $this->data["photoUploader"] ?>
+        <?= $this->data["photoUploader"] ?>
     </div>
     <div class="col-md-10 form-contact form-group">
       <div class="form-group registering  col-xs-12 col-sm-4">
@@ -67,6 +67,9 @@
 <div id="confirm"></div>
 <script>
   $(function () {
-    CKEDITOR.replace('content', {customConfig: 'config_admin.js'});
+    //    CKEDITOR.replace('content', {customConfig: 'config_admin.js'});
+  });
+  $(function () {
+    $('#content').autosize().height($(this).prop('scrollHeight'));
   });
 </script>

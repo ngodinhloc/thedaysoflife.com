@@ -4,7 +4,6 @@ namespace thedaysoflife\com;
 
 use jennifer\com\Common;
 use jennifer\html\HTML;
-use jennifer\sys\Config;
 use thedaysoflife\sys\Configs;
 
 class Com extends Common {
@@ -17,7 +16,7 @@ class Com extends Common {
     public static function getSearchLink($search, $encode = true) {
         $search = $encode ? urlencode($search) : $search;
         
-        return Config::SITE_URL . "/search/" . $search;
+        return getenv("SITE_URL") . "/search/?q=" . $search;
     }
     
     /**
@@ -26,8 +25,7 @@ class Com extends Common {
      */
     public static function getDayLink($day) {
         return $link = Configs::LIST_URL . $day['id'] . '/' . $day['day'] . $day['month'] . $day['year'] . '-' .
-                       $day['slug'] .
-                       Configs::URL_EXT;
+                       $day['slug'] . getenv("URL_EXT");
     }
     
     /**
@@ -60,26 +58,28 @@ class Com extends Common {
     }
     
     /**
-     * @param string $menu
+     * @param string $route
      * @return string
      */
-    public static function getDashboardMenu($menu) {
-        $array  = ['home'    => '/back/home/',
-                   'days'    => '/back/days/',
-                   'about'   => '/back/about/',
-                   'privacy' => '/back/privacy/',
-                   'tools'   => '/back/tools/',];
+    public static function getDashboardMenu($route) {
+        $menus  = [
+            '/back/home/'    => ['title' => 'Home', 'url' => getenv("SITE_URL") . '/back/home/'],
+            '/back/days/'    => ['title' => 'Days', 'url' => getenv("SITE_URL") . '/back/days/'],
+            '/back/about/'   => ['title' => 'About', 'url' => getenv("SITE_URL") . '/back/about/'],
+            '/back/privacy/' => ['title' => 'Privacy', 'url' => getenv("SITE_URL") . '/back/privacy/'],
+            '/back/tools/'   => ['title' => 'Tools', 'url' => getenv("SITE_URL") . '/back/tools/'],
+        ];
         $html   = new HTML();
         $output = "";
-        foreach ($array as $text => $page) {
-            if (strtolower($menu) == strtolower($text)) {
+        foreach ($menus as $url => $menu) {
+            if (strtolower($route) == strtolower($url)) {
                 $output .= $html->setTag("li")->setClass("active")->open() .
-                           $html->setTag("a")->setProp(["href" => $page])->setInnerHTML(ucfirst($text))->create() .
+                           $html->setTag("a")->setProp(["href" => $menu["url"]])->setInnerHTML($menu["title"])->create() .
                            $html->setTag("li")->close();
             }
             else {
                 $output .= $html->setTag("li")->open() .
-                           $html->setTag("a")->setProp(["href" => $page])->setInnerHTML(ucfirst($text))->create() .
+                           $html->setTag("a")->setProp(["href" => $menu["url"]])->setInnerHTML($menu["title"])->create() .
                            $html->setTag("li")->close();
             }
         }
@@ -89,20 +89,22 @@ class Com extends Common {
     
     /**
      * Get menu (HTML)
-     * @param string $page
+     * @param string $route
      * @return string
      */
-    public static function getMenu($page) {
-        $menuArray = ['index'    => ['title' => 'The Days Of Life', 'url' => Configs::SITE_URL],
-                      'like'     => ['title' => 'Most Liked Days', 'url' => Configs::SITE_URL . '/like/'],
-                      'calendar' => ['title' => 'The Calendar Of Life', 'url' => Configs::SITE_URL . '/calendar/'],
-                      'picture'  => ['title' => 'The Picture Of Life', 'url' => Configs::SITE_URL . '/picture/'],
-                      'about'    => ['title' => 'About', 'url' => Configs::SITE_URL . '/about/'],
-                      'privacy'  => ['title' => 'Privacy', 'url' => Configs::SITE_URL . '/privacy/']];
-        $html      = new HTML();
-        $output    = "";
-        foreach ($menuArray as $view => $menu) {
-            if (strtolower($view) == strtolower($page)) {
+    public static function getMenu($route) {
+        $menus  = [
+            '/'          => ['title' => 'The Days Of Life', 'url' => getenv("SITE_URL")],
+            '/like/'     => ['title' => 'Most Liked Days', 'url' => getenv("SITE_URL") . '/like/'],
+            '/calendar/' => ['title' => 'The Calendar Of Life', 'url' => getenv("SITE_URL") . '/calendar/'],
+            '/picture/'  => ['title' => 'The Picture Of Life', 'url' => getenv("SITE_URL") . '/picture/'],
+            '/about/'    => ['title' => 'About', 'url' => getenv("SITE_URL") . '/about/'],
+            '/privacy/'  => ['title' => 'Privacy', 'url' => getenv("SITE_URL") . '/privacy/'],
+        ];
+        $html   = new HTML();
+        $output = "";
+        foreach ($menus as $url => $menu) {
+            if (strtolower($url) == strtolower($route)) {
                 $output .= $html->setTag("li")->setClass("active")->open() .
                            $html->setTag("a")->setProp(["href" => $menu['url']])->setInnerHTML($menu['title'])->create() .
                            $html->setTag("li")->close();
@@ -166,7 +168,7 @@ class Com extends Common {
         $year  = substr($ym, 0, 4);
         $month = substr($ym, 4, 2);
         $name  = self::getPhotoName($name, $type);
-        $url   = Configs::PHOTO_URL . $year . "/" . $month . "/" . $name;
+        $url   = getenv("PHOTO_URL") . $year . "/" . $month . "/" . $name;
         
         return $url;
     }

@@ -4,8 +4,8 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-3 footer_logo">
-        <a href="<?= \thedaysoflife\sys\Configs::SITE_URL ?>">
-          <img src="<?= \thedaysoflife\sys\Configs::SITE_URL ?>/interface/images/logo.png" alt="Bestdayoflife.net"/>
+        <a href="<?= getenv("SITE_URL") ?>">
+          <img src="<?= getenv("SITE_URL") ?>/assets/images/logo.png" alt="Bestdayoflife.net"/>
         </a>
       </div>
       <div class="col-xs-12 col-md-4 copyright-text">© 2014</div>

@@ -9,7 +9,7 @@ use thedaysoflife\view\ViewBack;
 
 class Login extends ViewBack implements ViewInterface {
     protected $title = "Dashboard Login";
-    protected $contentTemplate = "login";
+    protected $contentTemplate = "back/login";
     protected $requiredPermission = false;
     
     public function __construct(Admin $admin = null) {

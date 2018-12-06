@@ -11,9 +11,9 @@ use jennifer\exception\RequestException;
 use jennifer\sys\System;
 use jennifer\http\Response;
 
-$system = new System();
+$system = new System([DOC_ROOT . "/config/env.ini"], [DOC_ROOT . "/config/routes.ini"]);
 try {
-    $system->loadView()->renderView();
+    $system->matchRoute()->loadView()->renderView();
 }
 catch (RequestException $exception) {
     (new Response())->error($exception->getMessage());

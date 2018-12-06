@@ -10,10 +10,10 @@
   </div>
   <nav class="nav-content collapse navbar-collapse bs-navbar-collapse">
     <ul class="nav navbar-nav">
-      <?= Com::getDashboardMenu($this->meta["view"]) ?>
+        <?= Com::getDashboardMenu($this->meta["route"]) ?>
     </ul>
   </nav>
   <div class="pull-right">
-    <?= $this->meta["userData"]["name"] ?> | <a href="/back/logout/">Logout</a>
+      <?= $this->meta["userData"]["name"] ?> | <a href="/back/logout/">Logout</a>
   </div>
 </div>
