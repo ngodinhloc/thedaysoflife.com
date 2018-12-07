@@ -5,8 +5,11 @@
 require_once("../models/autoload.php");
 
 use jennifer\api\API;
+use jennifer\exception\ConfigException;
 use jennifer\exception\RequestException;
 use jennifer\http\Response;
+use jennifer\sys\System;
+use thedaysoflife\api\ServiceMapper;
 
 /*
  * Sample api request
@@ -22,10 +25,11 @@ $url = "www.thedaysoflife.com/api/?req=" . json_encode($req);
 $url = 'www.thedaysoflife.com/api/?req={"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySUQiOjEwMDAsInBlcm1pc3Npb24iOlsidXNlciIsImRheSJdfQ.f2ieaIQd8OrTK7UrA4BqDwhgg1NpzLV7OdOGIWBbQNU","service":"service_day","action":"get_day","para":{"id":"100151","json":false}}';
 */
 
-$api = new API();
 try {
-    $api->processRequest()->run();
-}
-catch (RequestException $exception) {
+    $system = new System([DOC_ROOT . "/config/env.ini"]);
+    $system->setApi(new API(new ServiceMapper()))->runAPI();
+} catch (ConfigException $exception) {
+    (new Response())->error($exception->getMessage());
+} catch (RequestException $exception) {
     (new Response())->error($exception->getMessage());
 }

@@ -5,14 +5,18 @@ namespace back;
 use jennifer\view\ViewInterface;
 use thedaysoflife\view\ViewBack;
 
-class Logout extends ViewBack implements ViewInterface {
+class Logout extends ViewBack implements ViewInterface
+{
     protected $requiredPermission = false;
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         parent::__construct();
     }
-    
-    public function prepare() {
+
+    public function prepare()
+    {
         $this->authentication->userLogout();
+        return $this;
     }
 }
