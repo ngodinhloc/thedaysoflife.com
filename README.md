@@ -29,10 +29,10 @@ Thedaysoflide was developed by using the Jennifer Framework https://github.com/n
 - [Ajax MVC Pattern](#ajax-mvc-pattern)
 - [The Application Structure](#the-application-structure)
     - api
+    - assets
     - caches
+    - config
     - controllers
-    - interface
-    - js
     - models
     - plugins
     - templates
@@ -74,41 +74,54 @@ In Ajax MVC Pattern (aMVC): actions are sent from views to controllers via ajax
 ### Single Point Entry
 #### index.php
 <pre>
+use jennifer\exception\ConfigException;
 use jennifer\exception\RequestException;
+use jennifer\http\Response;
+use jennifer\http\Router;
 use jennifer\sys\System;
 
-$system = new System();
 try {
-  $system->loadView()->renderView();
-}
-catch (RequestException $exception) {
-  $exception->getMessage();
+    $system = new System([DOC_ROOT . "/config/env.ini"]);
+    $system->setRouter(new Router([DOC_ROOT . "/config/routes.ini"]))->loadView()->renderView();
+} catch (ConfigException $exception) {
+    (new Response())->error($exception->getMessage());
+} catch (RequestException $exception) {
+    (new Response())->error($exception->getMessage());
 }
 </pre>
 #### api/index.php
 <pre>
 use jennifer\api\API;
+use jennifer\exception\ConfigException;
 use jennifer\exception\RequestException;
+use jennifer\http\Response;
+use jennifer\sys\System;
+use thedaysoflife\api\ServiceMapper;
 
-$api = new API();
 try {
-  $api->processRequest()->run();
-}
-catch (RequestException $exception) {
-  $exception->getMessage();
+    $system = new System([DOC_ROOT . "/config/env.ini"]);
+    $system->setApi(new API(new ServiceMapper()))->runAPI();
+} catch (ConfigException $exception) {
+    (new Response())->error($exception->getMessage());
+} catch (RequestException $exception) {
+    (new Response())->error($exception->getMessage());
 }
 </pre>
 #### controllers/index.php
 <pre>
+use jennifer\exception\ConfigException;
 use jennifer\exception\RequestException;
+use jennifer\http\Response;
+use jennifer\http\Router;
 use jennifer\sys\System;
 
-$system = new System();
 try {
-  $system->loadController()->runController();
-}
-catch (RequestException $exception) {
-  $exception->getMessage();
+    $system = new System([DOC_ROOT . "/config/env.ini"]);
+    $system->setRouter(new Router([DOC_ROOT . "/config/routes.ini"]))->loadController()->runController();
+} catch (ConfigException $exception) {
+    (new Response())->error($exception->getMessage());
+} catch (RequestException $exception) {
+    (new Response())->error($exception->getMessage());
 }
 </pre>
 ### Models
@@ -212,6 +225,7 @@ class index extends ViewFront implements ViewInterface
     {
         $days = $this->user->getDays(0, User::ORDER_BY_ID);
         $this->data = ["days" => $days, "order" => User::ORDER_BY_ID];
+        return $this;
     }
 }
 </pre>
