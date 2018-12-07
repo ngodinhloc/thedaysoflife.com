@@ -59,8 +59,6 @@ In Ajax MVC Pattern (aMVC): actions are sent from views to controllers via ajax
 ### Single Point Entry
 #### index.php
 <pre>
-use jennifer\exception\ConfigException;
-use jennifer\exception\RequestException;
 use jennifer\http\Response;
 use jennifer\http\Router;
 use jennifer\sys\System;
@@ -68,17 +66,13 @@ use jennifer\sys\System;
 try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
     $system->setRouter(new Router([DOC_ROOT . "/config/routes.ini"]))->loadView()->renderView();
-} catch (ConfigException $exception) {
-    (new Response())->error($exception->getMessage());
-} catch (RequestException $exception) {
+} catch (Exception $exception) {
     (new Response())->error($exception->getMessage());
 }
 </pre>
 #### api/index.php
 <pre>
 use jennifer\api\API;
-use jennifer\exception\ConfigException;
-use jennifer\exception\RequestException;
 use jennifer\http\Response;
 use jennifer\sys\System;
 use thedaysoflife\api\ServiceMapper;
@@ -86,16 +80,12 @@ use thedaysoflife\api\ServiceMapper;
 try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
     $system->setApi(new API(new ServiceMapper()))->runAPI();
-} catch (ConfigException $exception) {
-    (new Response())->error($exception->getMessage());
-} catch (RequestException $exception) {
+} catch (Exception $exception) {
     (new Response())->error($exception->getMessage());
 }
 </pre>
 #### controllers/index.php
 <pre>
-use jennifer\exception\ConfigException;
-use jennifer\exception\RequestException;
 use jennifer\http\Response;
 use jennifer\http\Router;
 use jennifer\sys\System;
@@ -103,9 +93,7 @@ use jennifer\sys\System;
 try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
     $system->setRouter(new Router([DOC_ROOT . "/config/routes.ini"]))->loadController()->runController();
-} catch (ConfigException $exception) {
-    (new Response())->error($exception->getMessage());
-} catch (RequestException $exception) {
+} catch (Exception $exception) {
     (new Response())->error($exception->getMessage());
 }
 </pre>

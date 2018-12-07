@@ -5,8 +5,6 @@
 require_once("../models/autoload.php");
 
 use jennifer\api\API;
-use jennifer\exception\ConfigException;
-use jennifer\exception\RequestException;
 use jennifer\http\Response;
 use jennifer\sys\System;
 use thedaysoflife\api\ServiceMapper;
@@ -28,8 +26,6 @@ $url = 'www.thedaysoflife.com/api/?req={"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI
 try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
     $system->setApi(new API(new ServiceMapper()))->runAPI();
-} catch (ConfigException $exception) {
-    (new Response())->error($exception->getMessage());
-} catch (RequestException $exception) {
+} catch (Exception $exception) {
     (new Response())->error($exception->getMessage());
 }
