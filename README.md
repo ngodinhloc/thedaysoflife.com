@@ -28,7 +28,6 @@ Thedaysoflide was developed by using the Jennifer framework https://github.com/n
 ### The Application
 - [Ajax MVC Pattern](#ajax-mvc-pattern)
 - [The Application Structure](#the-application-structure)
-    - api
     - assets
     - caches
     - config
@@ -48,14 +47,14 @@ In Ajax MVC Pattern (aMVC): actions are sent from views to controllers via ajax
 <pre>views -> ajax -> controllers -> models</pre>
 
 ### The Application Structure
-- models: contains all the packages and models which are the heart of Jennifer framework
-- views: contains all view classes. View classes are placed under each module. In the sample code, we have 2 modules: "back" and "front", each module has serveral views.
-- controllers: contains all controller classes. Each module may have one or more controllers
-- templates: contains all templates using in views, models and controllers. Templates are organised under module just like view. There are view templates and content templates. Each view has one view template with similar file name. For example: the index view (index.class.php) is using index template (index.tpl.php). Content templates are placed inside "tpl" folder, content templates may be used to render html content in views, models or controllers.
 - assets: contains css, js, images
-- config: contains config files
+- caches: contains cache files for mysql queries, views
+- config: contains config files : env.inc, routes.inc...
+- controllers: contains all controller classes
+- models: contains all the packages and models which are the heart of Jennifer framework
 - plugins: contains all plugins, such as: bootstrap, ckeditor, jquery
-- caches: contains cache files for mysql queries
+- templates: contains all templates using in views, models and controllers. Templates are organised under module just like view. There are view templates and content templates. Each view has one view template with similar file name. For example: the index view (index.class.php) is using index template (index.tpl.php). Content templates are placed inside "tpl" folder, content templates may be used to render html content in views, models or controllers.
+- views: contains all view classes. View classes are placed under each module. In the sample code, we have 2 modules: "back" and "front", each module has serveral views.
 
 ### Single Point Entry
 #### index.php
