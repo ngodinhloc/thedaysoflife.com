@@ -23,7 +23,7 @@ Many questions poped up in my head: Was anybody in the same situation like me ? 
 
 ### Development
 
-Thedaysoflide was developed by using the Jennifer Framework https://github.com/ngodinhloc/jennifer
+Thedaysoflide was developed by using the Jennifer framework https://github.com/ngodinhloc/jennifer
 
 ### The Application
 - [Ajax MVC Pattern](#ajax-mvc-pattern)
