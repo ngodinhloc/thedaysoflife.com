@@ -67,7 +67,7 @@ try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
     $system->setRouter(new Router([DOC_ROOT . "/config/routes.ini"]))->loadView()->renderView();
 } catch (Exception $exception) {
-    (new Response())->error($exception->getMessage());
+    (new Response())->error($exception->getMessage(), $exception->getCode());
 }
 </pre>
 #### api/index.php
@@ -81,7 +81,7 @@ try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
     $system->setApi(new API(new ServiceMapper()))->runAPI();
 } catch (Exception $exception) {
-    (new Response())->error($exception->getMessage());
+    (new Response())->error($exception->getMessage(), $exception->getCode());
 }
 </pre>
 #### controllers/index.php
@@ -94,6 +94,6 @@ try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
     $system->setRouter(new Router([DOC_ROOT . "/config/routes.ini"]))->loadController()->runController();
 } catch (Exception $exception) {
-    (new Response())->error($exception->getMessage());
+    (new Response())->error($exception->getMessage(), $exception->getCode());
 }
 </pre>
