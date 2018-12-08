@@ -27,5 +27,5 @@ try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
     $system->setApi(new API(new ServiceMapper()))->runAPI();
 } catch (Exception $exception) {
-    (new Response())->error($exception->getMessage());
+    (new Response())->error($exception->getMessage(), $exception->getCode());
 }
