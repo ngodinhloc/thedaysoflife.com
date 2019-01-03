@@ -2,6 +2,7 @@
 
 namespace back;
 
+use jennifer\sys\Config;
 use jennifer\view\ViewInterface;
 use thedaysoflife\model\Admin;
 use thedaysoflife\view\ViewBack;
@@ -22,7 +23,7 @@ class Privacy extends ViewBack implements ViewInterface
         $tag = "privacy";
         $info = $this->admin->getInfoByTag($tag);
         $this->data = ["tag" => $tag, "info" => $info];
-        $this->addMetaFile(getenv("SITE_URL") . "/plugins/ckeditor/ckeditor.js");
+        $this->addMetaFile(Config::getConfig("SITE_URL") . "/plugins/ckeditor/ckeditor.js");
         return $this;
     }
 }

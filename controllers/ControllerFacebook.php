@@ -3,6 +3,7 @@
 use Facebook\Exceptions\FacebookSDKException;
 use jennifer\controller\Controller;
 use jennifer\fb\FacebookHelper;
+use jennifer\sys\Config;
 use jennifer\sys\Globals;
 use thedaysoflife\com\Com;
 use thedaysoflife\model\Admin;
@@ -38,7 +39,7 @@ class ControllerFacebook extends Controller
             switch ($type) {
                 case FacebookHelper::FB_TEXT:
                     $attachment = $this->fbText($day);
-                    $response = $this->helper->fb->post('/' . getenv("FB_PAGEID") .
+                    $response = $this->helper->fb->post('/' . Config::getConfig("FB_PAGEID") .
                         '/feed', $attachment, $appAccessToken);
                     $postID = $response->getGraphNode();
                     if ($postID) {
@@ -49,7 +50,7 @@ class ControllerFacebook extends Controller
 
                 case FacebookHelper::FB_FEED:
                     $attachment = $this->fbFeed($day);
-                    $response = $this->helper->fb->post('/' . getenv("FB_PAGEID") .
+                    $response = $this->helper->fb->post('/' . Config::getConfig("FB_PAGEID") .
                         '/feed', $attachment, $appAccessToken);
                     $postID = $response->getGraphNode();
                     if ($postID) {
@@ -60,7 +61,7 @@ class ControllerFacebook extends Controller
 
                 case FacebookHelper::FB_LINK:
                     $attachment = $this->fbLink($day);
-                    $response = $this->helper->fb->post('/' . getenv("FB_PAGEID") .
+                    $response = $this->helper->fb->post('/' . Config::getConfig("FB_PAGEID") .
                         '/feed', $attachment, $appAccessToken);
                     $postID = $response->getGraphNode();
                     if ($postID) {
@@ -75,7 +76,7 @@ class ControllerFacebook extends Controller
                     $status = "NO";
                     if (sizeof($photos) > 0) {
                         $albumData = $this->fbAlbum($day);
-                        $newAlbum = $this->helper->fb->post("/" . getenv("FB_PAGEID") .
+                        $newAlbum = $this->helper->fb->post("/" . Config::getConfig("FB_PAGEID") .
                             "/albums", $albumData, $appAccessToken);
                         $album = $newAlbum->getDecodedBody();
                         if (isset($album["id"])) {
@@ -99,7 +100,7 @@ class ControllerFacebook extends Controller
         } else {
             $permissions = ['manage_pages', 'publish_actions'];
             $helper = $this->helper->fb->getRedirectLoginHelper();
-            $loginUrl = $helper->getLoginUrl(getenv("SITE_URL") . '/back/days/', $permissions);
+            $loginUrl = $helper->getLoginUrl(Config::getConfig("SITE_URL") . '/back/days/', $permissions);
             $this->result = ["status" => "login",
                 "id" => $id,
                 "data" => '<a href="' . $loginUrl . '">FBLogin</a>'];

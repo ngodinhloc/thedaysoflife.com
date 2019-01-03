@@ -3,6 +3,7 @@
 namespace back;
 
 use jennifer\html\jobject\PhotoUploader;
+use jennifer\sys\Config;
 use jennifer\view\ViewInterface;
 use thedaysoflife\com\Com;
 use thedaysoflife\model\Admin;
@@ -31,7 +32,7 @@ class Day extends ViewBack implements ViewInterface
                 "monthSelect" => Com::getMonthOptions($row["month"]),
                 "yearSelect" => Com::getYearOptions($row["year"]),
                 "photoUploader" => $photoUploader->render()];
-            $this->addMetaFile(getenv("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js");
+            $this->addMetaFile(Config::getConfig("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js");
         }
         return $this;
     }

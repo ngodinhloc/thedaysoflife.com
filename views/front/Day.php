@@ -3,6 +3,7 @@
 namespace front;
 
 use jennifer\html\jobject\FlexSlider;
+use jennifer\sys\Config;
 use jennifer\sys\Globals;
 use jennifer\view\ViewInterface;
 use thedaysoflife\com\Com;
@@ -67,13 +68,13 @@ class Day extends ViewFront implements ViewInterface
                     "relatedDays" => $relatedDays != "" ? $relatedDays : "No related days found",
                     "topDays" => $topDays,];
 
-                $this->addMetaTag("<meta property='fb:admins' content='" . getenv("FB_PAGEID") . "'/>");
+                $this->addMetaTag("<meta property='fb:admins' content='" . Config::getConfig("FB_PAGEID") . "'/>");
                 $this->addMetaTag("<meta property='og:type' content='article'/>");
                 $this->addMetaTag("<meta property='og:url' content='{$this->url}'/>");
                 $this->addMetaTag("<meta property='og:title' content='{$this->title}'/>");
                 $this->addMetaTag("<meta property='og:description' content='{$this->description}'/>");
                 $this->addMetaTag("<meta property='og:image' content='{$photoURL}'/>");
-                $this->addMetaFile(getenv("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js");
+                $this->addMetaFile(Config::getConfig("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js");
             }
         }
         return $this;

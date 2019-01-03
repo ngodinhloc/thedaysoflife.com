@@ -3,6 +3,7 @@
 namespace front;
 
 use jennifer\html\jobject\PhotoUploader;
+use jennifer\sys\Config;
 use jennifer\view\ViewInterface;
 use thedaysoflife\com\Com;
 use thedaysoflife\view\ViewFront;
@@ -25,7 +26,7 @@ class Share extends ViewFront implements ViewInterface
             "monthSelect" => Com::getMonthOptions(),
             "yearSelect" => Com::getYearOptions(),
             "photoUploader" => $photoUploader->render()];
-        $this->addMetaFile(getenv("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js");
+        $this->addMetaFile(Config::getConfig("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js");
         return $this;
     }
 }

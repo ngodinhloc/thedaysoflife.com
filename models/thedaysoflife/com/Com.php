@@ -4,6 +4,7 @@ namespace thedaysoflife\com;
 
 use jennifer\com\Common;
 use jennifer\html\HTML;
+use jennifer\sys\Config;
 use thedaysoflife\sys\Configs;
 
 class Com extends Common
@@ -18,7 +19,7 @@ class Com extends Common
     {
         $search = $encode ? urlencode($search) : $search;
 
-        return getenv("SITE_URL") . "/search/?q=" . $search;
+        return Config::getConfig("SITE_URL") . "/search/?q=" . $search;
     }
 
     /**
@@ -28,7 +29,7 @@ class Com extends Common
     public static function getDayLink($day)
     {
         return $link = Configs::LIST_URL . $day['id'] . '/' . $day['day'] . $day['month'] . $day['year'] . '-' .
-            $day['slug'] . getenv("URL_EXT");
+            $day['slug'] . Config::getConfig("URL_EXT");
     }
 
     /**
@@ -70,11 +71,11 @@ class Com extends Common
     public static function getDashboardMenu($route)
     {
         $menus = [
-            '/back/home/' => ['title' => 'Home', 'url' => getenv("SITE_URL") . '/back/home/'],
-            '/back/days/' => ['title' => 'Days', 'url' => getenv("SITE_URL") . '/back/days/'],
-            '/back/about/' => ['title' => 'About', 'url' => getenv("SITE_URL") . '/back/about/'],
-            '/back/privacy/' => ['title' => 'Privacy', 'url' => getenv("SITE_URL") . '/back/privacy/'],
-            '/back/tools/' => ['title' => 'Tools', 'url' => getenv("SITE_URL") . '/back/tools/'],
+            '/back/home/' => ['title' => 'Home', 'url' => Config::getConfig("SITE_URL") . '/back/home/'],
+            '/back/days/' => ['title' => 'Days', 'url' => Config::getConfig("SITE_URL") . '/back/days/'],
+            '/back/about/' => ['title' => 'About', 'url' => Config::getConfig("SITE_URL") . '/back/about/'],
+            '/back/privacy/' => ['title' => 'Privacy', 'url' => Config::getConfig("SITE_URL") . '/back/privacy/'],
+            '/back/tools/' => ['title' => 'Tools', 'url' => Config::getConfig("SITE_URL") . '/back/tools/'],
         ];
         $html = new HTML();
         $output = "";
@@ -101,12 +102,12 @@ class Com extends Common
     public static function getMenu($route)
     {
         $menus = [
-            '/' => ['title' => 'The Days Of Life', 'url' => getenv("SITE_URL")],
-            '/like/' => ['title' => 'Most Liked Days', 'url' => getenv("SITE_URL") . '/like/'],
-            '/calendar/' => ['title' => 'The Calendar Of Life', 'url' => getenv("SITE_URL") . '/calendar/'],
-            '/picture/' => ['title' => 'The Picture Of Life', 'url' => getenv("SITE_URL") . '/picture/'],
-            '/about/' => ['title' => 'About', 'url' => getenv("SITE_URL") . '/about/'],
-            '/privacy/' => ['title' => 'Privacy', 'url' => getenv("SITE_URL") . '/privacy/'],
+            '/' => ['title' => 'The Days Of Life', 'url' => Config::getConfig("SITE_URL")],
+            '/like/' => ['title' => 'Most Liked Days', 'url' => Config::getConfig("SITE_URL") . '/like/'],
+            '/calendar/' => ['title' => 'The Calendar Of Life', 'url' => Config::getConfig("SITE_URL") . '/calendar/'],
+            '/picture/' => ['title' => 'The Picture Of Life', 'url' => Config::getConfig("SITE_URL") . '/picture/'],
+            '/about/' => ['title' => 'About', 'url' => Config::getConfig("SITE_URL") . '/about/'],
+            '/privacy/' => ['title' => 'Privacy', 'url' => Config::getConfig("SITE_URL") . '/privacy/'],
         ];
         $html = new HTML();
         $output = "";
@@ -155,7 +156,7 @@ class Com extends Common
         $year = substr($ym, 0, 4);
         $month = substr($ym, 4, 2);
         $name = self::getPhotoName($name, $type);
-        $url = getenv("PHOTO_URL") . $year . "/" . $month . "/" . $name;
+        $url = Config::getConfig("PHOTO_URL") . $year . "/" . $month . "/" . $name;
 
         return $url;
     }
