@@ -12,7 +12,6 @@ var jennifer = {
     if (loader) {
       $(loader).html(AJAX_LOADER);
     }
-    console.log(CONST.CONTROLLER_URL);
     $.ajax({
       url:     CONST.CONTROLLER_URL,
       type:    "POST",

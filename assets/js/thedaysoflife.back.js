@@ -42,7 +42,7 @@ $("a.remove-day").live("click", function () {
 function ajaxUpdateInfo() {
   CKEDITOR.instances['content'].updateElement();
   data = $("#div-edit-info").find("select[name], textarea[name], input[name]").serialize();
-  jennifer.ajaxAction({"action": "ajaxUpdateInfo", "controller": "ControllerBack"}, data, false, "#ajax-loader",
+    jennifer.ajaxAction({"action": "ajaxUpdateInfo", "controller": "back/ControllerBack"}, data, false, "#ajax-loader",
     {"container": "#ajax-loader", "act": "replace"}, false);
 }
 
@@ -73,7 +73,7 @@ function processPostToFacebook(data) {
  */
 function ajaxPrintDay(page) {
   data = $.param({page: page});
-  jennifer.ajaxAction({"action": "ajaxPrintDay", "controller": "ControllerBack"}, data, false, "#loader",
+    jennifer.ajaxAction({"action": "ajaxPrintDay", "controller": "back/ControllerBack"}, data, false, "#loader",
     {"container": "#print-list", "act": "replace"}, false);
 }
 
@@ -81,7 +81,7 @@ function ajaxPrintDay(page) {
  * Remove unused photos
  */
 function ajaxRemoveUnusedPhoto() {
-  jennifer.ajaxAction({"action": "ajaxRemoveUnusedPhoto", "controller": "ControllerBack"},
+    jennifer.ajaxAction({"action": "ajaxRemoveUnusedPhoto", "controller": "back/ControllerBack"},
     false, false, "#remove-photo-result", {"container": "#remove-photo-result", "act": "replace"}, false);
 }
 
@@ -90,7 +90,7 @@ function ajaxRemoveUnusedPhoto() {
  */
 function ajaxCheckDatabase() {
   act = $('input[name=checkdb]:checked').val();
-  jennifer.ajaxAction({"action": "ajaxCheckDatabase", "controller": "ControllerBack"},
+    jennifer.ajaxAction({"action": "ajaxCheckDatabase", "controller": "back/ControllerBack"},
     $.param({"act": act}), false, "#check-database-result", {
       "container": "#check-database-result",
       "act":       "replace"
@@ -101,14 +101,14 @@ function ajaxCheckDatabase() {
  * Update day
  */
 function ajaxUpdateADay() {
-  CKEDITOR.instances['content'].updateElement();
+    // CKEDITOR.instances['content'].updateElement();
   content = $("#edit-day").find("select[name], textarea[name], input[name]").serialize();
   photos = getIDs();
-  data = content + "&" + $.param({"photos": photos})
+    data = content + "&" + $.param({"photos": photos});
   callback = processUpdateADay;
   jennifer.ajaxAction({
     "action":     "ajaxUpdateADay",
-    "controller": "ControllerBack"
+      "controller": "back/ControllerBack"
   }, data, false, "#ajax-loader", false, callback);
 }
 
@@ -129,7 +129,7 @@ function processUpdateADay(data) {
 function ajaxRemoveADay(id) {
   loader = "#remove-day-" + id;
   callback = processRemoveADay;
-  jennifer.ajaxAction({"action": "ajaxRemoveADay", "controller": "ControllerBack"},
+    jennifer.ajaxAction({"action": "ajaxRemoveADay", "controller": "back/ControllerBack"},
     $.param({"id": id}), loader, false, false, callback);
 }
 /**
