@@ -22,8 +22,8 @@ class Privacy extends ViewBack implements ViewInterface
     {
         $tag = "privacy";
         $info = $this->admin->getInfoByTag($tag);
-        $this->data = ["tag" => $tag, "info" => $info];
-        $this->addMetaFile(Config::getConfig("SITE_URL") . "/plugins/ckeditor/ckeditor.js");
+        $this->setData(["tag" => $tag, "info" => $info]);
+        $this->addMetaFiles([Config::getConfig("SITE_URL") . "/plugins/ckeditor/ckeditor.js"]);
         return $this;
     }
 }

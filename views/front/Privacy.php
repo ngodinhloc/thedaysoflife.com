@@ -21,7 +21,7 @@ class Privacy extends ViewFront implements ViewInterface
     public function prepare()
     {
         $info = $this->user->getInfoByTag("privacy");
-        $this->data = ["info" => $info];
+        $this->setData(["info" => $info]);
         return $this;
     }
 }

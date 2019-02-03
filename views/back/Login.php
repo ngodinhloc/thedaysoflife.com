@@ -44,7 +44,7 @@ class Login extends ViewBack implements ViewInterface
                     //if invalid email and password
                     $message = $this->authentication->messages["INVALID_AUTHENTICATION"]["message"];
                 }
-                $this->data["message"] = $message;
+                $this->setData(["message" => $message]);
             }
         }
         return $this;

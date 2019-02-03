@@ -20,7 +20,7 @@ class Calendar extends ViewFront implements ViewInterface
     public function prepare()
     {
         $calendar = $this->user->getCalendar(0);
-        $this->data = ["calendar" => $calendar];
+        $this->setData(["calendar" => $calendar]);
         return $this;
     }
 }

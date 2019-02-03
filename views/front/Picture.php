@@ -20,7 +20,7 @@ class Picture extends ViewFront implements ViewInterface
     public function prepare()
     {
         $picture = $this->user->getPicture(0);
-        $this->data = ["picture" => $picture];
+        $this->setData(["picture" => $picture]);
         return $this;
     }
 }

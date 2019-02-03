@@ -22,11 +22,11 @@ class Share extends ViewFront implements ViewInterface
     public function prepare()
     {
         $photoUploader = new PhotoUploader([], ["text" => "Have some photos to upload?"]);
-        $this->data = ["daySelect" => Com::getDayOptions(),
+        $this->setData(["daySelect" => Com::getDayOptions(),
             "monthSelect" => Com::getMonthOptions(),
             "yearSelect" => Com::getYearOptions(),
-            "photoUploader" => $photoUploader->render()];
-        $this->addMetaFile(Config::getConfig("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js");
+            "photoUploader" => $photoUploader->render()]);
+        $this->addMetaFiles([Config::getConfig("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js"]);
         return $this;
     }
 }

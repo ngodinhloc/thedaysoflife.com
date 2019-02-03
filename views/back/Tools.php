@@ -22,8 +22,8 @@ class Tools extends ViewBack implements ViewInterface
     {
         $databaseTools = Element::radios(MySQL::DB_ACTIONS, "checkdb", null, null, "<br>");
         $photoTools = Element::radios(["REMOVE_UNUSED" => "Remove unused photos"], "photoTools", "REMOVE_UNUSED", null, "");
-        $this->data = ["photoTools" => $photoTools,
-            "databaseTools" => $databaseTools];
+        $this->setData(["photoTools" => $photoTools,
+            "databaseTools" => $databaseTools]);
         return $this;
     }
 }

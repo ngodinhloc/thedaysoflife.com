@@ -24,9 +24,8 @@ class Day extends ViewFront implements ViewInterface
     public function prepare()
     {
         $topDays = $this->user->getRightTopDays();
-        $this->data = ["topDays" => $topDays,];
-        $id = $this->hasPara("id");
-        if ($id) {
+        $this->setData(["topDays" => $topDays]);
+        if ($id = $this->hasPara("id")) {
             $day = $this->user->getDayById($id);
             if ($day) {
                 $this->url = Com::getDayLink($day);
@@ -64,17 +63,19 @@ class Day extends ViewFront implements ViewInterface
                     "month" => (int)$day['month'],
                     "year" => (int)$day['year'],
                     "location" => $day['location']]);
-                $this->data = ["day" => $dayData,
-                    "relatedDays" => $relatedDays != "" ? $relatedDays : "No related days found",
-                    "topDays" => $topDays,];
 
-                $this->addMetaTag("<meta property='fb:admins' content='" . Config::getConfig("FB_PAGEID") . "'/>");
-                $this->addMetaTag("<meta property='og:type' content='article'/>");
-                $this->addMetaTag("<meta property='og:url' content='{$this->url}'/>");
-                $this->addMetaTag("<meta property='og:title' content='{$this->title}'/>");
-                $this->addMetaTag("<meta property='og:description' content='{$this->description}'/>");
-                $this->addMetaTag("<meta property='og:image' content='{$photoURL}'/>");
-                $this->addMetaFile(Config::getConfig("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js");
+                $this->setData(["day" => $dayData,
+                    "topDays" => $topDays,
+                    "relatedDays" => $relatedDays != "" ? $relatedDays : "No related days found"]);
+
+                $this->addMetaTags([
+                    "<meta property='fb:admins' content='" . Config::getConfig("FB_PAGEID") . "'/>",
+                    "<meta property='og:type' content='article'/>",
+                    "<meta property='og:url' content='{$this->url}'/>",
+                    "<meta property='og:title' content='{$this->title}'/>",
+                    "<meta property='og:description' content='{$this->description}'/>",
+                    "<meta property='og:image' content='{$photoURL}'/>"]);
+                $this->addMetaFiles([Config::getConfig("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js"]);
             }
         }
         return $this;

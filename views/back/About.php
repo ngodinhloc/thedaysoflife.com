@@ -22,8 +22,8 @@ class About extends ViewBack implements ViewInterface
     {
         $tag = "about";
         $info = $this->admin->getInfoByTag($tag);
-        $this->data = ["tag" => $tag, "info" => $info];
-        $this->addMetaFile(Config::getConfig("SITE_URL") . "/plugins/ckeditor/ckeditor.js");
+        $this->setData(["tag" => $tag, "info" => $info]);
+        $this->addMetaFiles([Config::getConfig("SITE_URL") . "/plugins/ckeditor/ckeditor.js"]);
         return $this;
     }
 }

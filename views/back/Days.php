@@ -23,7 +23,7 @@ class Days extends ViewBack implements ViewInterface
     public function prepare()
     {
         $days = $this->admin->getDayList(1);
-        $this->data = ["days" => $days];
+        $this->setData(["days" => $days]);
         $this->fbHelper->fbLogin();
         return $this;
     }

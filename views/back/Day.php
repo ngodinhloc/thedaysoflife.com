@@ -22,17 +22,16 @@ class Day extends ViewBack implements ViewInterface
 
     public function prepare()
     {
-        $id = $this->hasPara("id");
-        if ($id) {
+        if ($id = $this->hasPara("id")) {
             $row = $this->admin->getDayById($id);
             $photoUploader = new PhotoUploader([], ["text" => "Current photos",
                 "currentPhotos" => Com::getPhotoPreviewArray($row["photos"])]);
-            $this->data = ["row" => $row,
+            $this->setData(["row" => $row,
                 "daySelect" => Com::getDayOptions($row["day"]),
                 "monthSelect" => Com::getMonthOptions($row["month"]),
                 "yearSelect" => Com::getYearOptions($row["year"]),
-                "photoUploader" => $photoUploader->render()];
-            $this->addMetaFile(Config::getConfig("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js");
+                "photoUploader" => $photoUploader->render()]);
+            $this->addMetaFiles([Config::getConfig("SITE_URL") . "/plugins/jquery/jquery.autosize.min.js"]);
         }
         return $this;
     }

@@ -22,7 +22,7 @@ class Search extends ViewFront implements ViewInterface
         $search = $this->request->hasGet("q");
         if ($search) {
             $searchResult = $this->user->getSearch($search);
-            $this->data = ["searchTerm" => $search, "searchResult" => $searchResult];
+            $this->setData(["searchTerm" => $search, "searchResult" => $searchResult]);
         }
         return $this;
     }

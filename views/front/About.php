@@ -21,7 +21,7 @@ class About extends ViewFront implements ViewInterface
     public function prepare()
     {
         $info = $this->user->getInfoByTag("about");
-        $this->data = ["info" => $info];
+        $this->setData(["info" => $info]);
         return $this;
     }
 }
