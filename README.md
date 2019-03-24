@@ -26,7 +26,6 @@ Many questions poped up in my head: Was anybody in the same situation like me ? 
 Thedaysoflide was developed by using the Jennifer framework https://github.com/ngodinhloc/jennifer
 
 ### The Application
-- [Ajax MVC Pattern](#ajax-mvc-pattern)
 - [The Application Structure](#the-application-structure)
     - assets
     - caches
@@ -41,10 +40,6 @@ Thedaysoflide was developed by using the Jennifer framework https://github.com/n
     - index.php
     - api\index.php
     - controllers/index.php
-    
-### Ajax MVC Pattern
-In Ajax MVC Pattern (aMVC): actions are sent from views to controllers via ajax
-<pre>views -> ajax -> controllers -> models</pre>
 
 ### The Application Structure
 - assets: contains css, js, images
