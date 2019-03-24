@@ -54,9 +54,9 @@ Thedaysoflide was developed by using the Jennifer framework https://github.com/n
 ### Single Point Entry
 #### index.php
 <pre>
-use jennifer\http\Response;
-use jennifer\http\Router;
-use jennifer\sys\System;
+use Jennifer\Http\Response;
+use Jennifer\Http\Router;
+use Jennifer\Sys\System;
 
 try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
@@ -67,23 +67,23 @@ try {
 </pre>
 #### api/index.php
 <pre>
-use jennifer\api\API;
-use jennifer\http\Response;
-use jennifer\sys\System;
-use thedaysoflife\api\ServiceMapper;
+use Jennifer\Api\Api;
+use Jennifer\Http\Response;
+use Jennifer\Sys\System;
+use thedaysoflife\Api\ServiceMapper;
 
 try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
-    $system->setApi(new API(new ServiceMapper()))->runAPI();
+    $system->setApi(new Api(new ServiceMapper()))->runAPI();
 } catch (Exception $exception) {
     (new Response())->error($exception->getMessage(), $exception->getCode());
 }
 </pre>
 #### controllers/index.php
 <pre>
-use jennifer\http\Response;
-use jennifer\http\Router;
-use jennifer\sys\System;
+use Jennifer\Http\Response;
+use Jennifer\Http\Router;
+use Jennifer\Sys\System;
 
 try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
