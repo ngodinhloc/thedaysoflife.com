@@ -1,4 +1,4 @@
-<? use thedaysoflife\com\Com; ?>
+<? use thedaysoflife\Com\Com; ?>
 <? foreach ($this->data["years"] as $year) {
     $link = Com::getSearchLink($year, false); ?>
     <div class="calendar-div"><h4><a href="<?= $link ?>"><?= $year ?></a></h4>

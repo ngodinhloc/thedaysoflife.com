@@ -2,11 +2,11 @@
 
 require_once(DOC_ROOT . '/plugins/jquery/fileuploader/FileUploader.php');
 
-use jennifer\controller\Controller;
+use Jennifer\Controller\Controller;
 
 /**
  * Sample controller for JFileUploader
- * @see \jennifer\html\jobject\FileUploader
+ * @see \Jennifer\Html\JObject\FileUploader
  */
 class ControllerFileUploader extends Controller
 {

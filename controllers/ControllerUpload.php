@@ -1,10 +1,10 @@
 <?php
 
-use jennifer\controller\Controller;
-use jennifer\file\SimpleImage;
-use jennifer\sys\Globals;
-use thedaysoflife\com\Com;
-use thedaysoflife\sys\Configs;
+use Jennifer\Controller\Controller;
+use Jennifer\File\SimpleImage;
+use Jennifer\Sys\Globals;
+use thedaysoflife\Com\Com;
+use thedaysoflife\Sys\Configs;
 
 class ControllerUpload extends Controller
 {
@@ -17,10 +17,12 @@ class ControllerUpload extends Controller
     /**
      * Upload photos
      * @return string
+     * @throws Exception
      */
     public function uploadPhotos()
     {
         $files = Globals::files("inputfile");
+        $result = false;
         if ($files) {
             $image = new SimpleImage();
             $count = count($files['name']) >
@@ -48,18 +50,18 @@ class ControllerUpload extends Controller
                             $image->save($photoDir . $thumbName);
 
                             $thumbURL = Com::getPhotoURL($name, Configs::PHOTO_THUMB_NAME);
-                            $this->result .= $this->createPhotoHTML($name, $thumbURL);
+                            $result .= $this->createPhotoHTML($name, $thumbURL);
                         } else {
-                            $this->result = "File size is too big (Maximum size is " . Configs::PHOTO_MAX_SIZE . "MB)";
+                            $result = "File size is too big (Maximum size is " . Configs::PHOTO_MAX_SIZE . "MB)";
                         }
                     } else {
-                        $this->result = "Invalid file extension (Only GIF, PNG, JPG, JPEG)";
+                        $result = "Invalid file extension (Only GIF, PNG, JPG, JPEG)";
                     }
                 }
             }
         }
 
-        return $this->result;
+        return $result;
     }
 
     /**

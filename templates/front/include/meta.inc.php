@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title><?= $this->meta["title"] ?></title>
-<meta name="author" content="<?= \thedaysoflife\sys\Configs::SITE_AUTHOR ?>"/>
+<meta name="author" content="<?= \thedaysoflife\Sys\Configs::SITE_AUTHOR ?>"/>
 <meta name="description" content="<?= $this->meta["description"] ?>"/>
 <meta name="keywords" content="<?= $this->meta["keyword"] ?>"/>
 <base href="<?= getenv("BASE_URL") ?>">

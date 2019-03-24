@@ -1,12 +1,10 @@
 <?php
-/**
- * Single entry point for controllers: all ajax actions point to this page with a pair of {action, controller}
- */
+require_once("../vendor/autoload.php");
 require_once("../models/autoload.php");
 
-use jennifer\http\Response;
-use jennifer\http\Router;
-use jennifer\sys\System;
+use Jennifer\Http\Response;
+use Jennifer\Http\Router;
+use Jennifer\Sys\System;
 
 try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);

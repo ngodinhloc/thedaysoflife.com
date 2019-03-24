@@ -1,13 +1,13 @@
 <?php
 
 use Facebook\Exceptions\FacebookSDKException;
-use jennifer\controller\Controller;
-use jennifer\fb\FacebookHelper;
-use jennifer\sys\Config;
-use jennifer\sys\Globals;
-use thedaysoflife\com\Com;
-use thedaysoflife\model\Admin;
-use thedaysoflife\sys\Configs;
+use Jennifer\Controller\Controller;
+use thedaysoflife\Facebook\FacebookHelper;
+use Jennifer\Sys\Config;
+use Jennifer\Sys\Globals;
+use thedaysoflife\Com\Com;
+use thedaysoflife\Model\Admin;
+use thedaysoflife\Sys\Configs;
 
 class ControllerFacebook extends Controller
 {
@@ -34,6 +34,7 @@ class ControllerFacebook extends Controller
         $appAccessToken = Globals::session("FB_appAccessToken");
         $id = (int)$this->request->post['id'];
         $type = $this->request->post['type'];
+        $result = false;
         if ($appAccessToken) {
             $day = $this->admin->getDayById($id);
             switch ($type) {
@@ -44,7 +45,7 @@ class ControllerFacebook extends Controller
                     $postID = $response->getGraphNode();
                     if ($postID) {
                         $this->admin->updateFB($id, $type);
-                        $this->result = ["status" => "OK", "id" => $id];
+                        $result = ["status" => "OK", "id" => $id];
                     }
                     break;
 
@@ -55,7 +56,7 @@ class ControllerFacebook extends Controller
                     $postID = $response->getGraphNode();
                     if ($postID) {
                         $this->admin->updateFB($id, $type);
-                        $this->result = ["status" => "OK", "id" => $id, "data" => "OK"];
+                        $result = ["status" => "OK", "id" => $id, "data" => "OK"];
                     }
                     break;
 
@@ -66,7 +67,7 @@ class ControllerFacebook extends Controller
                     $postID = $response->getGraphNode();
                     if ($postID) {
                         $this->admin->updateFB($id, $type);
-                        $this->result = ["status" => "OK", "id" => $id, "data" => "OK"];
+                        $result = ["status" => "OK", "id" => $id, "data" => "OK"];
                     }
                     break;
 
@@ -94,19 +95,19 @@ class ControllerFacebook extends Controller
                             }
                         }
                     }
-                    $this->result = ["status" => $status, "id" => $id, "data" => $status];
+                    $result = ["status" => $status, "id" => $id, "data" => $status];
                     break;
             }
         } else {
             $permissions = ['manage_pages', 'publish_actions'];
             $helper = $this->helper->fb->getRedirectLoginHelper();
             $loginUrl = $helper->getLoginUrl(Config::getConfig("SITE_URL") . '/back/days/', $permissions);
-            $this->result = ["status" => "login",
+            $result = ["status" => "login",
                 "id" => $id,
                 "data" => '<a href="' . $loginUrl . '">FBLogin</a>'];
         }
 
-        return $this->result;
+        return $result;
     }
 
     /**

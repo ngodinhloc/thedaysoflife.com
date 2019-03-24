@@ -1,0 +1,34 @@
+{
+  "name": "ngodinhloc/thedaysoflife",
+  "description": "Share Memories, Inspire People",
+  "keywords": [
+    "Share Memories",
+    "Inspire People"
+  ],
+  "homepage": "https://github.com/ngodinhloc/thedaysoflife.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ngo Dinh Loc",
+      "email": "ngodinhloc@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.0",
+    "ngodinhloc/jennifer": "1.1.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Jennifer\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Jennifer\\Test\\": "test/"
+    }
+  },
+  "minimum-stability": "dev"
+}

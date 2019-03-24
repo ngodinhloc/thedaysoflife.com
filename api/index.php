@@ -1,13 +1,11 @@
 <?php
-/**
- * Single entry point for API: all api point to this page with an request
- */
+require_once("../vendor/autoload.php");
 require_once("../models/autoload.php");
 
-use jennifer\api\API;
-use jennifer\http\Response;
-use jennifer\sys\System;
-use thedaysoflife\api\ServiceMapper;
+use Jennifer\Api\Api;
+use Jennifer\Http\Response;
+use Jennifer\Sys\System;
+use thedaysoflife\Api\ServiceMapper;
 
 /*
  * Sample api request
@@ -25,7 +23,7 @@ $url = 'www.thedaysoflife.com/api/?req={"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI
 
 try {
     $system = new System([DOC_ROOT . "/config/env.ini"]);
-    $system->setApi(new API(new ServiceMapper()))->runAPI();
+    $system->setApi(new Api(new ServiceMapper()))->runAPI();
 } catch (Exception $exception) {
     (new Response())->error($exception->getMessage(), $exception->getCode());
 }

@@ -1,4 +1,4 @@
-<?php use thedaysoflife\com\Com; ?>
+<?php use thedaysoflife\Com\Com; ?>
 <div class="menu">
     <div class="navbar-header">
         <button class="navbar-toggle" type="button">
